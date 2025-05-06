@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Booking</title>
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .page-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 2rem;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1f2937;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #1f2937;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #1f2937;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-success {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #10b981, #059669);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(16, 185, 129, 0.3);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-info {
+            background-color: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            color: #1e40af;
+        }
+        
+        .readonly-field {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+        }
+        
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-icon {
+            height: 60px;
+            width: 60px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+		/* Back button */
+		.back-button {
+		    display: inline-flex;
+		    align-items: center;
+		    padding: 0.5rem 1rem;
+		    background: white;
+		    border: 1px solid #e5e7eb;
+		    border-radius: 8px;
+		    color: #4b5563;
+		    font-weight: 500;
+		    text-decoration: none;
+		    margin-bottom: 1rem;
+		    transition: all 0.2s ease;
+		    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+		}
+
+		.back-button:hover {
+		    background: #f9fafb;
+		    transform: translateY(-1px);
+		}
+		
+		.disabled-btn {
+		    background: #9ca3af !important; /* Gray color */
+		    cursor: not-allowed !important;
+		    box-shadow: none !important;
+		    transform: none !important;
+		}
+
+    </style>
+    <script>
+        // ✅ Extract URL Parameters (customerId & cylinderId)
+        function getQueryParam(param) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let userId = getQueryParam("userId");
+            let cylinderId = getQueryParam("cylinderId");
+            let today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
+
+            // ✅ Auto-fill Customer ID and Cylinder ID (Readonly)
+            if (userId) document.getElementById("customerId").value = userId;
+            if (cylinderId) document.getElementById("cylinderId").value = cylinderId;
+
+            // ✅ Auto-set Booking Date to Today
+            document.getElementById("bookingDate").value = today;
+
+            // ✅ Auto-set Cylinder Count to 1 (Hidden Field)
+            document.getElementById("cylinderCount").value = 1;
+
+            // ✅ Default paymentStatus for CASH = PENDING
+            document.getElementById("paymentStatus").value = "PENDING";
+
+            // ✅ Set Default Booking Status = CONFIRMED
+            document.getElementById("bookingStatus").value = "CONFIRMED";
+
+            // ✅ Set Default Delivery Date based on Standard delivery (3 days)
+            updateDeliveryDate();
+        });
+
+        // ✅ Update Delivery Date based on Delivery Option
+        function updateDeliveryDate() {
+            let deliveryOption = document.getElementById("deliveryOption").value;
+            let bookingDate = document.getElementById("bookingDate").value;
+            let deliveryDateField = document.getElementById("deliveryDate");
+            let deliveryDateContainer = document.getElementById("deliveryDateContainer");
+
+            if (!bookingDate) return; // Ensure bookingDate is set
+
+            let bookingDateObj = new Date(bookingDate);
+            let deliveryDateObj = new Date(bookingDateObj); // Clone booking date
+
+            // ✅ Adjust delivery date based on the selected delivery option
+            if (deliveryOption === "STANDARD") {
+                deliveryDateObj.setDate(bookingDateObj.getDate() + 3); // +3 days
+            } else if (deliveryOption === "EXPRESS") {
+                deliveryDateObj.setDate(bookingDateObj.getDate() + 2); // +2 days
+            } else if (deliveryOption === "SAME_DAY") {
+                deliveryDateObj = bookingDateObj; // Same as booking date
+            }
+
+            // ✅ Convert date to YYYY-MM-DD format
+            let formattedDeliveryDate = deliveryDateObj.toISOString().split('T')[0];
+
+            if (deliveryOption === "SCHEDULED") {
+                deliveryDateContainer.style.display = "block"; // Show date picker
+                deliveryDateField.value = ""; // Allow user to select a date
+                deliveryDateField.required = true;
+            } else {
+                deliveryDateContainer.style.display = "none"; // Hide manual date picker
+                deliveryDateField.value = formattedDeliveryDate;
+                deliveryDateField.required = false;
+            }
+        }
+
+        // ✅ Handle Payment Mode Selection
+        function handlePaymentModeChange() {
+            let paymentMode = document.getElementById("paymentMode").value;
+            let paymentStatusField = document.getElementById("paymentStatus");
+            let payButton = document.getElementById("payButton");
+
+            if (paymentMode === "CASH") {
+                paymentStatusField.value = "PENDING";
+                payButton.style.display = "none"; // Hide Pay button
+            } else {
+                payButton.style.display = "block"; // Show Pay button
+                paymentStatusField.value = ""; // Clear status until payment is made
+            }
+        }
+
+        // ✅ Handle Payment (User Clicks Pay Button)
+        function processPayment() {
+            let paymentMode = document.getElementById("paymentMode").value;
+            let paymentStatusField = document.getElementById("paymentStatus");
+
+            if (paymentMode === "CREDIT_CARD" || paymentMode === "DEBIT_CARD" || paymentMode === "UPI") {
+                paymentStatusField.value = "PAID";
+            } else if (paymentMode === "NET_BANKING") {
+                paymentStatusField.value = "FAILED";
+                alert("⚠️ Payment Failed! Please choose a different payment mode.");
+                return;
+            }
+
+            document.getElementById("bookingForm").submit();
+        }
+    </script>
+</head>
+<body>
+	
+	<!--Navbar starts-->	
+	<nav class="fixed top-0 left-0 right-0 w-full bg-transparent backdrop-blur-sm z-50 px-4 py-4 transition-all duration-300">
+		      <div class="container max-w-7xl mx-auto flex items-center justify-between">
+		        <!-- Logo with Wind Symbol -->
+		        <a href="#" class="text-blue-600 flex items-center">
+		          <svg
+		            xmlns="http://www.w3.org/2000/svg"
+		            width="32"
+		            height="32"
+		            viewBox="0 0 24 24"
+		            fill="none"
+		            stroke="currentColor"
+		            stroke-width="2"
+		            stroke-linecap="round"
+		            stroke-linejoin="round"
+		            class="lucide lucide-wind w-8 h-8 mr-3"
+		          >
+		            <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+		            <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+		            <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+		          </svg>
+		          <span class="font-medium text-3xl tracking-tight">FuelPro</span>
+		        </a>
+
+		        <!-- Main Navigation Links -->
+		        <ul class="hidden lg:flex space-x-8">
+		          <li>
+		            <a
+		              th:href="@{/}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Home</a
+		            >
+		          </li>
+                  <li>
+                    <a
+                      th:href="@{/bookings/dashboard/CUSTOMER/{id}(id=${userId})}"
+                      class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+                      >Dashboard</a
+                    >
+                  </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/cylindermanage/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Cylinder Management</a
+		            >
+		          </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/suppliermanage/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Supplier Management</a
+		            >
+		          </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/bookings/admin/users/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Customer Management</a
+		            >
+		          </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/admin/reports}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Report Management</a
+		            >
+		          </li>
+				  <!--customer nav links start-->
+				  <li th:if="${role == 'CUSTOMER'}">
+				    <a
+				      th:href="@{/bookings(userId=${userId})}"
+				      class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+				      >View Your Bookings</a
+				    >
+				  </li>
+				  <li th:if="${role == 'CUSTOMER'}">
+				    <a
+				      onclick="assignCylinderAndBook()"
+				      class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+				      >Create New Booking</a
+				    >
+				  </li>
+				  <!-- customer nav links end -->
+		        </ul>
+
+		        <!-- Login Button with Mobile Menu Button -->
+		        <div class="flex items-center">
+					<a th:href="@{/bookings/login}" class="hover:bg-red-600 px-3 py-2 rounded-md transition duration-300 flex items-center text-red-200">
+						 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+						    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+						    <polyline points="16 17 21 12 16 7"></polyline>
+						  	<line x1="21" y1="12" x2="9" y2="12"></line>
+						 </svg>
+						Logout
+					</a>
+		          <!-- Mobile Menu Button -->
+		          <button class="lg:hidden text-gray-800" id="mobile-menu-button">
+		            <svg
+		              class="w-8 h-8"
+		              fill="none"
+		              stroke="currentColor"
+		              viewBox="0 0 24 24"
+		            >
+		              <path
+		                stroke-linecap="round"
+		                stroke-linejoin="round"
+		                stroke-width="2"
+		                d="M4 6h16M4 12h16m-7 6h7"
+		              ></path>
+		            </svg>
+		          </button>
+		        </div>
+		      </div>
+		    </nav>	
+
+	<!--Navbar ends-->	
+	
+<div class="container py-8 animate-fade-in">
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+            </div>
+            <h2 class="page-title">Create Booking</h2>
+        </div>
+        
+        <form id="bookingForm" th:action="@{/bookings/save}" method="post">
+            
+            <div class="form-group">
+                <label class="form-label">Customer ID:</label>
+                <input type="text" id="customerId" name="userId" class="form-control readonly-field" readonly required />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Cylinder ID:</label>
+                <input type="text" id="cylinderId" name="cylinderId" class="form-control readonly-field" readonly required />
+            </div>
+
+            <input type="hidden" id="cylinderCount" name="cylinderCount" value="1" />
+
+            <div class="form-group">
+                <label class="form-label">Time Slot:</label>
+                <select class="form-select" name="timeSlot" required>
+                    <option th:each="slot : ${T(com.faos.enums.TimeSlot).values()}"
+                            th:value="${slot}" th:text="${slot.label}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Delivery Option:</label>
+                <select id="deliveryOption" class="form-select" name="deliveryOption" onchange="updateDeliveryDate()" required>
+                    <option th:each="option : ${T(com.faos.enums.DeliveryOption).values()}"
+                            th:value="${option}" th:text="${option.label}"></option>
+                </select>
+            </div>
+
+            <div id="deliveryDateContainer" class="form-group" style="display: none;">
+                <label class="form-label">Choose Delivery Date:</label>
+                <input type="date" id="deliveryDate" name="deliveryDate" class="form-control">
+            </div>
+
+            <input type="hidden" id="deliveryDate" name="deliveryDate" />
+
+            <div class="form-group">
+                <label class="form-label">Payment Mode:</label>
+                <select class="form-select" id="paymentMode" name="paymentMode" onchange="handlePaymentModeChange()" required>
+                    <option th:each="mode : ${T(com.faos.enums.PaymentMode).values()}"
+                            th:value="${mode}" th:text="${mode}"></option>
+                </select>
+            </div>
+
+            <input type="hidden" id="paymentStatus" name="paymentStatus" value="PENDING" />
+
+            <input type="hidden" id="bookingStatus" name="bookingStatus" value="CONFIRMED" />
+
+            <button type="button" id="payButton" th:disabled="${restriction}" th:classappend="${restriction} ? 'disabled-btn' : ''" class="btn-success" style="display: none;" onclick="processPayment()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+                Complete Payment
+            </button>
+
+            <div class="form-group">
+                <label class="form-label">Booking Date:</label>
+                <input type="date" id="bookingDate" name="bookingDate" class="form-control readonly-field" readonly />
+            </div>
+
+            <div class="alert alert-info text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <strong>Note:</strong> Only one cylinder can be booked per order.
+            </div>
+			<!-- Show restriction message if the customer booked within the last 30 days -->
+			<div th:if="${restriction}" class="alert alert-info text-center">
+			    <strong>⚠️ You can only book a new cylinder 30 days after your last booking.</strong>
+			</div>
+
+            <button type="submit" class="btn-primary" th:disabled="${restriction}" th:classappend="${restriction} ? 'disabled-btn' : ''">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Submit Booking
+            </button>
+        </form>
+    </div>
+	<!-- Back button to return to dashboard -->
+	<div class="mt-6">
+	        <a th:href="@{/bookings/dashboard/CUSTOMER/{id}(id=${userId})}" class="back-button">
+	            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+	                <line x1="19" y1="12" x2="5" y2="12"></line>
+	                <polyline points="12 19 5 12 12 5"></polyline>
+	            </svg>
+	            Back to Dashboard
+	        </a>
+	</div>
+</div>
+</body>
+</html>
+

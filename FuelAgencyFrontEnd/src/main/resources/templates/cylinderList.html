@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Cylinder List</title>
+	<script src="https://cdn.tailwindcss.com/3.3.3"></script>
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<style>
+		body {
+			font-family: 'Poppins', sans-serif;
+			background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+			min-height: 100vh;
+			margin-top: 70px;
+			color: #000;
+		}
+		
+		.container {
+			max-width: 1200px;
+			margin: 3rem auto;
+			padding: 2rem 1rem;
+			background: white;
+			border-radius: 16px;
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08),
+						0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		}
+		
+		.page-title {
+			position: relative;
+			display: inline-block;
+			margin-bottom: 2rem;
+			text-align: center;
+			font-weight: 700;
+			color: #2563eb;
+			font-size: 2.5rem;
+		}
+		
+		.page-title::after {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 100px;
+			height: 4px;
+			background: linear-gradient(to right, #3b82f6, #6366f1);
+			border-radius: 2px;
+		}
+		
+		.navbar {
+			background-color: rgba(255, 255, 255, 0.85);
+			backdrop-filter: blur(10px);
+			padding: 10px 20px;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 1000;
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+						0 2px 4px -1px rgba(0, 0, 0, 0.06);
+		}
+		
+		.navbar a {
+			color: #1f2937;
+			transition: color 0.3s ease;
+			font-weight: 500;
+		}
+		
+		.navbar a:hover {
+			color: #3b82f6;
+		}
+		
+		.filter-row {
+			margin-bottom: 25px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 15px;
+			align-items: flex-end;
+		}
+		
+		.form-control, .form-select {
+			padding: 10px;
+			border-radius: 8px;
+			border: 1px solid #e5e7eb;
+			background-color: #f9fafb;
+			transition: all 0.3s ease;
+		}
+		
+		.form-control:focus, .form-select:focus {
+			border-color: #3b82f6;
+			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+			outline: none;
+		}
+		
+		.btn {
+			padding: 10px 20px;
+			border-radius: 8px;
+			font-weight: 500;
+			transition: all 0.3s ease;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.btn-primary {
+			background: linear-gradient(to right, #3b82f6, #6366f1);
+			color: white;
+			border: none;
+			box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+		}
+		
+		.btn-primary:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+		}
+		
+		.btn-secondary {
+			background-color: #9ca3af;
+			color: white;
+			border: none;
+			box-shadow: 0 4px 6px rgba(156, 163, 175, 0.25);
+		}
+		
+		.btn-secondary:hover {
+			background-color: #6b7280;
+			transform: translateY(-2px);
+			box-shadow: 0 7px 14px rgba(156, 163, 175, 0.3);
+		}
+		
+		.btn-success {
+			background: linear-gradient(to right, #10b981, #059669);
+			color: white;
+			border: none;
+			box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25);
+		}
+		
+		.btn-success:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 7px 14px rgba(16, 185, 129, 0.3);
+		}
+		
+		.btn-warning {
+			background-color: #f59e0b;
+			color: white;
+			border: none;
+		}
+		
+		.btn-warning:hover {
+			background-color: #d97706;
+		}
+		
+		.btn-danger {
+			background-color: #ef4444;
+			color: white;
+			border: none;
+		}
+		
+		.btn-danger:hover {
+			background-color: #dc2626;
+		}
+		
+		.table {
+			border-collapse: separate;
+			border-spacing: 0;
+			width: 100%;
+			margin-top: 20px;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+						0 2px 4px -1px rgba(0, 0, 0, 0.06);
+		}
+		
+		.table th {
+			background: linear-gradient(to right, #3b82f6, #6366f1);
+			color: white;
+			font-weight: 600;
+			text-transform: uppercase;
+			font-size: 0.85rem;
+			letter-spacing: 0.5px;
+			padding: 15px;
+		}
+		
+		.table td {
+			padding: 15px;
+			border-bottom: 1px solid #e5e7eb;
+			vertical-align: middle;
+		}
+		
+		.table tr:hover {
+			background-color: #f9fafb;
+		}
+		
+		.table tr:last-child td {
+			border-bottom: none;
+		}
+		
+		.badge {
+			padding: 6px 12px;
+			border-radius: 20px;
+			font-size: 0.85rem;
+			font-weight: 500;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.bg-primary {
+			background-color: #3b82f6;
+			color: white;
+		}
+		
+		.bg-info {
+			background-color: #0ea5e9;
+			color: white;
+		}
+		
+		.bg-success {
+			background-color: #10b981;
+			color: white;
+		}
+		
+		.bg-warning {
+			background-color: #f59e0b;
+			color: black;
+		}
+		
+		.bg-danger {
+			background-color: #ef4444;
+			color: white;
+		}
+		
+		.search {
+			width: 200px;
+			padding: 10px;
+			border-radius: 8px;
+			border: 1px solid #e5e7eb;
+			background-color: #f9fafb;
+		}
+		
+		.action-buttons {
+			display: flex;
+			gap: 5px;
+		}
+		
+		.toast-container {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			z-index: 1100;
+		}
+		
+		.search-container {
+			margin-bottom: 20px;
+			padding: 20px;
+			background-color: #f9fafb;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+		}
+		
+		/* Preloader */
+		.preloader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #3498db;
+			z-index: 9999;
+			display: none;
+		}
+
+		.preloader h1 {
+			position: absolute;
+			font-weight: 600;
+			font-size: 14px;
+			text-transform: uppercase;
+			left: 50%;
+			top: 58%;
+			margin-left: -50px;
+			color: white;
+		}
+
+		.preloader .body {
+			position: absolute;
+			top: 50%;
+			margin-left: -50px;
+			left: 50%;
+			animation: speeder 0.4s linear infinite;
+		}
+
+		.preloader .body > span {
+			height: 5px;
+			width: 35px;
+			background: white;
+			position: absolute;
+			top: -19px;
+			left: 60px;
+			border-radius: 2px 10px 1px 0;
+		}
+
+		.preloader .base span {
+			position: absolute;
+			width: 0;
+			height: 0;
+			border-top: 6px solid transparent;
+			border-right: 100px solid white;
+			border-bottom: 6px solid transparent;
+		}
+
+		.preloader .base span:before {
+			content: "";
+			height: 22px;
+			width: 22px;
+			border-radius: 50%;
+			background: white;
+			position: absolute;
+			right: -110px;
+			top: -16px;
+		}
+
+		.preloader .base span:after {
+			content: "";
+			position: absolute;
+			width: 0;
+			height: 0;
+			border-top: 0 solid transparent;
+			border-right: 55px solid white;
+			border-bottom: 16px solid transparent;
+			top: -16px;
+			right: -98px;
+		}
+
+		.preloader .face {
+			position: absolute;
+			height: 12px;
+			width: 20px;
+			background: white;
+			border-radius: 20px 20px 0 0;
+			transform: rotate(-40deg);
+			right: -125px;
+			top: -15px;
+		}
+
+		.preloader .face:after {
+			content: "";
+			height: 12px;
+			width: 12px;
+			background: white;
+			right: 4px;
+			top: 7px;
+			position: absolute;
+			transform: rotate(40deg);
+			transform-origin: 50% 50%;
+			border-radius: 0 0 0 2px;
+		}
+
+		.preloader .body > span > span:nth-child(1),
+		.preloader .body > span > span:nth-child(2),
+		.preloader .body > span > span:nth-child(3),
+		.preloader .body > span > span:nth-child(4) {
+			width: 30px;
+			height: 1px;
+			background: white;
+			position: absolute;
+			animation: fazer1 0.2s linear infinite;
+		}
+
+		.preloader .body > span > span:nth-child(2) {
+			top: 3px;
+			animation: fazer2 0.4s linear infinite;
+		}
+
+		.preloader .body > span > span:nth-child(3) {
+			top: 1px;
+			animation: fazer3 0.4s linear infinite;
+			animation-delay: -1s;
+		}
+
+		.preloader .body > span > span:nth-child(4) {
+			top: 4px;
+			animation: fazer4 1s linear infinite;
+			animation-delay: -1s;
+		}
+
+		.preloader .longfazers {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+
+		.preloader .longfazers span {
+			position: absolute;
+			height: 2px;
+			width: 20%;
+			background: rgba(255, 255, 255, 0.7);
+		}
+
+		.preloader .longfazers span:nth-child(1) {
+			top: 20%;
+			animation: lf 0.6s linear infinite;
+			animation-delay: -5s;
+		}
+
+		.preloader .longfazers span:nth-child(2) {
+			top: 40%;
+			animation: lf2 0.8s linear infinite;
+			animation-delay: -1s;
+		}
+
+		.preloader .longfazers span:nth-child(3) {
+			top: 60%;
+			animation: lf3 0.6s linear infinite;
+		}
+
+		.preloader .longfazers span:nth-child(4) {
+			top: 80%;
+			animation: lf4 0.5s linear infinite;
+			animation-delay: -3s;
+		}
+
+		@keyframes fazer1 {
+			0% { left: 0; }
+			100% { left: -80px; opacity: 0; }
+		}
+
+		@keyframes fazer2 {
+			0% { left: 0; }
+			100% { left: -100px; opacity: 0; }
+		}
+
+		@keyframes fazer3 {
+			0% { left: 0; }
+			100% { left: -50px; opacity: 0; }
+		}
+
+		@keyframes fazer4 {
+			0% { left: 0; }
+			100% { left: -150px; opacity: 0; }
+		}
+
+		@keyframes speeder {
+			0% { transform: translate(2px, 1px) rotate(0deg); }
+			10% { transform: translate(-1px, -3px) rotate(-1deg); }
+			20% { transform: translate(-2px, 0px) rotate(1deg); }
+			30% { transform: translate(1px, 2px) rotate(0deg); }
+			40% { transform: translate(1px, -1px) rotate(1deg); }
+			50% { transform: translate(-1px, 3px) rotate(-1deg); }
+			60% { transform: translate(-1px, 1px) rotate(0deg); }
+			70% { transform: translate(3px, 1px) rotate(-1deg); }
+			80% { transform: translate(-2px, -1px) rotate(1deg); }
+			90% { transform: translate(2px, 1px) rotate(0deg); }
+			100% { transform: translate(1px, -2px) rotate(-1deg); }
+		}
+
+		@keyframes lf {
+			0% { left: 200%; }
+			100% { left: -200%; opacity: 0; }
+		}
+		@keyframes lf2 {
+			0% { left: 200%; }
+			100% { left: -200%; opacity: 0; }
+		}
+		@keyframes lf3 {
+			0% { left: 200%; }
+			100% { left: -100%; opacity: 0; }
+		}
+		@keyframes lf4 {
+			0% { left: 200%; }
+			100% { left: -100%; opacity: 0; }
+		}
+	</style>
+</head>
+<body>
+<!-- Preloader Element -->
+<div id="preloader" class="preloader">
+	<div class='body'>
+		<span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+		<div class='base'>
+			<span></span>
+			<div class='face'></div>
+		</div>
+	</div>
+	<div class='longfazers'>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+	<h1>Redirecting</h1>
+</div>
+
+<!-- Toast Notification Container -->
+<div class="toast-container">
+	<div class="toast align-items-center text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true" th:if="${success}">
+		<div class="d-flex">
+			<div class="toast-body" th:text="${success}"></div>
+			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+	</div>
+	<div class="toast align-items-center text-white bg-danger" role="alert" aria-live="assertive" aria-atomic="true" th:if="${error}">
+		<div class="d-flex">
+			<div class="toast-body" th:text="${error}"></div>
+			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+	</div>
+</div>
+
+<!-- Modern Navbar -->
+<nav class="fixed top-0 left-0 right-0 w-full bg-transparent backdrop-blur-sm z-50 px-4 py-4 transition-all duration-300">
+	<div class="max-w-7xl mx-auto flex items-center justify-between">
+		<!-- Logo with Symbol -->
+		<a href="/" class="text-blue-600 flex items-center">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="32"
+				height="32"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="lucide lucide-wind w-8 h-8 mr-3"
+			>
+				<path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+				<path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+				<path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+			</svg>
+			<span class="font-medium text-3xl tracking-tight">FuelPro</span>
+		</a>
+
+		<!-- Main Navigation Links -->
+		<ul class="hidden lg:flex space-x-8">
+			<li>
+				<a
+					href="/"
+					class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+					onclick="showPreloaderOnLogin()">Home</a
+				>
+			</li>
+			<li>
+				<a
+				  th:href="@{/bookings/dashboard/ADMIN/{id}(id=${userId})}"
+				  class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+				  onclick="showPreloaderOnLogin()">Dashboard</a
+				>
+			</li>
+			<li>
+				<a
+					th:href="@{/cylindermanage/{id}(id=${userId})}"
+					class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+					onclick="showPreloaderOnLogin()">Cylinder Management</a
+				>
+			</li>
+			<li>
+				<a
+					th:href="@{/suppliermanage/{id}(id=${userId})}"
+					class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+					onclick="showPreloaderOnLogin()">Supplier Management</a
+				>
+			</li>
+			<li>
+				<a
+					th:href="@{/reportmanage/{id}(id=${userId})}"
+					class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+					onclick="showPreloaderOnLogin()">Report Management</a
+				>
+			</li>
+		</ul>
+
+		<!-- Login/Logout Button with Mobile Menu Button -->
+		<div class="flex items-center">
+			<a th:href="@{/bookings/login}" onclick="showPreloaderOnLogin()" class="hover:bg-red-600 px-3 py-2 rounded-md transition duration-300 flex items-center text-red-200">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+					<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+					<polyline points="16 17 21 12 16 7"></polyline>
+					<line x1="21" y1="12" x2="9" y2="12"></line>
+				</svg>
+				Logout
+			</a>
+			<!-- Mobile Menu Button -->
+			<button class="lg:hidden text-gray-800" id="mobile-menu-button">
+				<svg
+					class="w-8 h-8"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h16m-7 6h7"
+					></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+</nav>
+
+<div class="container mt-24">
+	<h1 class="page-title">Cylinder Details</h1>
+
+	<div class="search-container">
+		<!-- Filter Form -->
+		<form th:action="@{/cylinders/viewAll/{id}(id=${userId})}" method="get" class="mb-3" id="filterForm">
+			<div class="filter-row">
+				<div>
+					<label for="cylinderId" class="form-label font-medium">Cylinder ID:</label>
+					<input type="number" name="cylinderId" id="cylinderId" class="form-control search"
+						th:value="${selectedCylinderId}" placeholder="Enter cylinder ID" min="1">
+				</div>
+				<div>
+					<label for="type" class="form-label font-medium">Type:</label>
+					<select name="type" id="type" class="form-select search">
+						<option value="">All Types</option>
+						<option value="domestic" th:selected="${selectedType == 'domestic'}">Domestic</option>
+						<option value="commercial" th:selected="${selectedType == 'commercial'}">Commercial</option>
+					</select>
+				</div>
+				<div>
+					<label for="status" class="form-label font-medium">Status:</label>
+					<select name="status" id="status" class="form-select search">
+						<option value="">All Statuses</option>
+						<option value="Available" th:selected="${selectedStatus == 'Available'}">Available</option>
+						<option value="Booked" th:selected="${selectedStatus == 'Booked'}">Booked</option>
+						<option value="Out of Stock" th:selected="${selectedStatus == 'Out of Stock'}">Out of Stock</option>
+					</select>
+				</div>
+				<div>
+					<label for="supplierName" class="form-label font-medium">Supplier:</label>
+					<select name="supplierName" id="supplierName" class="form-select search">
+						<option value="">All Suppliers</option>
+						<option th:each="supplier : ${suppliers}"
+								th:value="${supplier.name}"
+								th:text="${supplier.name}"
+								th:selected="${selectedSupplierName == supplier.name}"></option>
+					</select>
+				</div>
+				<div class="flex gap-2">
+					<button type="submit" class="btn btn-primary">
+						<i class="fas fa-filter mr-2"></i>Apply Filters
+					</button>
+					<a th:href="@{/cylinders/viewAll/{id}(id=${userId})}" class="btn btn-secondary">
+						<i class="fas fa-undo mr-2"></i>Reset
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Cylinder ID</th>
+					<th>Type</th>
+					<th>Status</th>
+					<th>Last Refill Date</th>
+					<th>Supplier</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cylinder : ${cylinders}">
+					<td th:text="${cylinder.cylinderId}"></td>
+					<td>
+						<span th:if="${cylinder.type == 'domestic'}" class="badge bg-primary">Domestic</span>
+						<span th:if="${cylinder.type == 'commercial'}" class="badge bg-info">Commercial</span>
+					</td>
+					<td>
+						<span th:if="${cylinder.cylinderStatus == 'Available'}" class="badge bg-success">Available</span>
+						<span th:if="${cylinder.cylinderStatus == 'Booked'}" class="badge bg-warning">Booked</span>
+						<span th:if="${cylinder.cylinderStatus == 'Out of Stock'}" class="badge bg-danger">Out of Stock</span>
+					</td>
+					<td th:text="${#dates.format(cylinder.lastRefillDate, 'yyyy-MM-dd')}"></td>
+					<td th:text="${cylinder.supplier?.name}"></td>
+					<td class="action-buttons">
+						<a th:href="@{'/cylinders/edit/' + ${cylinder.cylinderId} + '/' + ${userId}}"
+							class="btn btn-warning btn-sm" title="Edit">
+							<i class="fas fa-edit"></i>
+						</a>
+						<button onclick="deleteCylinder(this)" class="btn btn-danger btn-sm"
+								th:data-id="${cylinder.cylinderId}" th:data-userid="${userId}" title="Delete">
+							<i class="fas fa-trash"></i>
+						</button>
+					</td>
+				</tr>
+				<tr th:if="${cylinders.empty}">
+					<td colspan="6" class="text-center">No cylinders found</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="d-flex justify-content-between mt-3">
+		<div>
+			<a th:href="@{/cylinders/add/{id}(id=${userId})}" class="btn btn-success">
+				<i class="fa-solid fa-plus mr-2"></i> New Cylinder
+			</a>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Initialize toast notifications
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show success/error toasts
+        const toasts = document.querySelectorAll('.toast');
+        toasts.forEach(toastEl => {
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                toast.hide();
+            }, 5000);
+        });
+
+        // Client-side validation for the filter form
+        document.getElementById('filterForm').addEventListener('submit', function(e) {
+            const cylinderId = document.getElementById('cylinderId').value;
+            const type = document.getElementById('type').value;
+            const status = document.getElementById('status').value;
+            const supplierName = document.getElementById('supplierName').value;
+
+            if (!cylinderId && !type && !status && !supplierName) {
+                e.preventDefault();
+                showToast('Please enter at least one filter criteria', 'warning');
+                return false;
+            }
+
+            return true;
+        });
+        
+        // Hide preloader when page is fully loaded
+        document.getElementById("preloader").style.display = "none";
+    });
+
+    function deleteCylinder(button) {
+        const cylinderId = button.getAttribute("data-id");
+		const userId = button.getAttribute("data-userid");
+        if (confirm("Are you sure you want to delete this cylinder?")) {
+            fetch(`/cylinders/delete/${cylinderId}?userId=${userId}`, { method: 'POST', headers: {'Content-Type': 'application/json'}})
+                .then(response => {
+                    if (response.ok) {
+                        showToast('Cylinder deleted successfully', 'success');
+                        setTimeout(() => window.location.reload(), 1500);
+                    } else {
+                        showToast('Failed to delete cylinder', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    showToast('Error deleting cylinder', 'danger');
+                });
+        }
+    }
+
+    function showToast(message, type) {
+        const toastElement = document.createElement('div');
+        toastElement.className = `toast align-items-center text-white bg-${type}`;
+        toastElement.setAttribute('role', 'alert');
+        toastElement.setAttribute('aria-live', 'assertive');
+        toastElement.setAttribute('aria-atomic', 'true');
+
+        toastElement.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+
+        document.querySelector('.toast-container').appendChild(toastElement);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+
+        // Remove toast after it hides
+        toastElement.addEventListener('hidden.bs.toast', function() {
+            toastElement.remove();
+        });
+    }
+    
+    // Function for preloader
+    function showPreloaderOnLogin() {
+        // Show the preloader
+        document.getElementById("preloader").style.display = "flex";
+        
+        // Return true to allow the navigation to continue
+        return true;
+    }
+    
+    // Optional: Add this to handle the page visibility changes (like when returning with back button)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            // Page is visible again (e.g., after using back button)
+            document.getElementById("preloader").style.display = "none";
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bill Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-3xl mx-auto my-8 px-4">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <!-- Header -->
+      <div class="bg-blue-700 px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h1 class="text-white text-2xl font-bold">INVOICE</h1>
+            <p class="text-blue-100 text-sm mt-1">Official Receipt</p>
+          </div>
+          <div class="text-right">
+            <p class="text-white font-bold text-xl">Gas Booking Services</p>
+            <p class="text-blue-100 text-sm">support@gasbooking.com</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bill Information -->
+      <div class="p-6">
+        <div class="flex justify-between pb-4 border-b border-gray-200">
+          <div>
+            <p class="text-sm text-gray-500">Invoice Number</p>
+            <p class="font-semibold" th:text="${bill.billId}"></p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm text-gray-500">Booking Date</p>
+            <p class="font-semibold" th:text="${bill.booking.bookingDate}"></p>
+          </div>
+        </div>
+        
+        <!-- Customer Details -->
+        <div class="mt-6 border-b border-gray-200 pb-4">
+          <h2 class="text-lg font-semibold text-gray-700 mb-3">Booking Details</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Booking ID</p>
+              <p class="font-medium" th:text="${bill.booking.bookingId}"></p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Delivery Date</p>
+              <p class="font-medium" th:text="${bill.booking.deliveryDate}"></p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Delivery Option</p>
+              <p class="font-medium" th:text="${bill.booking.deliveryOption}"></p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Bill Summary -->
+        <div class="mt-6">
+          <h2 class="text-lg font-semibold text-gray-700 mb-3">Bill Summary</h2>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <div class="border-b border-gray-200 py-3 flex justify-between">
+              <span class="text-gray-600">Base Price</span>
+              <span class="font-medium" th:text="${bill.price}"></span>
+            </div>
+            <div class="border-b border-gray-200 py-3 flex justify-between">
+              <span class="text-gray-600">GST</span>
+              <span class="font-medium" th:text="${bill.gst}"></span>
+            </div>
+            <div class="border-b border-gray-200 py-3 flex justify-between">
+              <span class="text-gray-600">Delivery Charge</span>
+              <span class="font-medium" th:text="${bill.deliveryCharge}"></span>
+            </div>
+            <div class="border-b border-gray-200 py-3 flex justify-between">
+              <span class="text-gray-600">Cylinder Limit Exceed Charge</span>
+              <span class="font-medium" th:text="${bill.CLECharge}"></span>
+            </div>
+            <div class="py-3 flex justify-between">
+              <span class="text-gray-800 font-semibold">Total Amount</span>
+              <span class="text-blue-700 font-bold text-xl" th:text="${bill.totalPrice}"></span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Download PDF Button -->
+        <div class="mt-6 text-center">
+          <a th:href="@{http://localhost:8080/api/bookings/pdf/{bookingId}(bookingId=${bill.booking.bookingId})}" 
+             class="inline-block px-6 py-2 bg-green-600 text-white font-medium rounded hover:bg-green-700 transition-colors" 
+             target="_blank">
+            Download PDF Invoice
+          </a>
+        </div>
+        
+        <!-- Footer / Terms -->
+        <div class="mt-8 text-center text-sm text-gray-500">
+          <p>Thank you for your business. This is a computer generated invoice and does not require a signature.</p>
+        </div>
+        
+        <!-- Back Button -->
+        <div class="mt-8 text-center">
+          <div class="flex justify-center space-x-4">
+            <a th:href="@{/bookings/dashboard/CUSTOMER/{id}(id=${bill.userId})}" 
+               class="px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition-colors">
+              Back to Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

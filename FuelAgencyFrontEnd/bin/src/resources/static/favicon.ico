@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <circle cx="32" cy="32" r="30" fill="#6DB33F" />
+  
+  <!-- Stylized letter 'B' for Booking -->
+  <path d="M22 16 L22 48 L38 48 C44 48 48 44 48 39 C48 35 45 32 42 31 C44 30 46 27 46 24 C46 19 42 16 37 16 Z" fill="white" />
+  <path d="M30 26 L30 22 L36 22 C38 22 40 23 40 24 C40 25 38 26 36 26 Z" fill="#6DB33F" />
+  <path d="M30 42 L30 38 L37 38 C39 38 41 39 41 40 C41 41 39 42 37 42 Z" fill="#6DB33F" />
+</svg>

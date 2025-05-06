@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Supplier | Booking System</title>
+    <!-- Using specific version of Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <!-- Fallback to include Tailwind CSS directly if the CDN script fails -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 2.5rem;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            border-radius: 2px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .action-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+            margin-top: 1rem;
+            width: 100%;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+            animation: pulse 1s infinite;
+        }
+        
+        .secondary-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: white;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-top: 1rem;
+            width: 100%;
+        }
+        
+        .secondary-button:hover {
+            background: #f9fafb;
+            transform: translateY(-2px);
+        }
+        
+        .cancel-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: #ef4444;
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.25);
+            margin-top: 1rem;
+            width: 100%;
+        }
+        
+        .cancel-button:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) translateY(-2px); }
+            50% { transform: scale(1.05) translateY(-2px); }
+        }
+        
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #3498db;
+            z-index: 9999;
+            display: none;
+        }
+
+        .preloader h1 {
+            position: absolute;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            left: 50%;
+            top: 58%;
+            margin-left: -50px;
+            color: white;
+        }
+
+        .preloader .body {
+            position: absolute;
+            top: 50%;
+            margin-left: -50px;
+            left: 50%;
+            animation: speeder 0.4s linear infinite;
+        }
+
+        .preloader .body > span {
+            height: 5px;
+            width: 35px;
+            background: white;
+            position: absolute;
+            top: -19px;
+            left: 60px;
+            border-radius: 2px 10px 1px 0;
+        }
+
+        .preloader .base span {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-right: 100px solid white;
+            border-bottom: 6px solid transparent;
+        }
+
+        .preloader .base span:before {
+            content: "";
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            right: -110px;
+            top: -16px;
+        }
+
+        .preloader .base span:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 0 solid transparent;
+            border-right: 55px solid white;
+            border-bottom: 16px solid transparent;
+            top: -16px;
+            right: -98px;
+        }
+
+        .preloader .face {
+            position: absolute;
+            height: 12px;
+            width: 20px;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            transform: rotate(-40deg);
+            right: -125px;
+            top: -15px;
+        }
+
+        .preloader .face:after {
+            content: "";
+            height: 12px;
+            width: 12px;
+            background: white;
+            right: 4px;
+            top: 7px;
+            position: absolute;
+            transform: rotate(40deg);
+            transform-origin: 50% 50%;
+            border-radius: 0 0 0 2px;
+        }
+
+        .preloader .body > span > span:nth-child(1),
+        .preloader .body > span > span:nth-child(2),
+        .preloader .body > span > span:nth-child(3),
+        .preloader .body > span > span:nth-child(4) {
+            width: 30px;
+            height: 1px;
+            background: white;
+            position: absolute;
+            animation: fazer1 0.2s linear infinite;
+        }
+
+        .preloader .body > span > span:nth-child(2) {
+            top: 3px;
+            animation: fazer2 0.4s linear infinite;
+        }
+
+        .preloader .body > span > span:nth-child(3) {
+            top: 1px;
+            animation: fazer3 0.4s linear infinite;
+            animation-delay: -1s;
+        }
+
+        .preloader .body > span > span:nth-child(4) {
+            top: 4px;
+            animation: fazer4 1s linear infinite;
+            animation-delay: -1s;
+        }
+
+        .preloader .longfazers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .preloader .longfazers span {
+            position: absolute;
+            height: 2px;
+            width: 20%;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .preloader .longfazers span:nth-child(1) {
+            top: 20%;
+            animation: lf 0.6s linear infinite;
+            animation-delay: -5s;
+        }
+
+        .preloader .longfazers span:nth-child(2) {
+            top: 40%;
+            animation: lf2 0.8s linear infinite;
+            animation-delay: -1s;
+        }
+
+        .preloader .longfazers span:nth-child(3) {
+            top: 60%;
+            animation: lf3 0.6s linear infinite;
+        }
+
+        .preloader .longfazers span:nth-child(4) {
+            top: 80%;
+            animation: lf4 0.5s linear infinite;
+            animation-delay: -3s;
+        }
+
+        @keyframes fazer1 {
+            0% { left: 0; }
+            100% { left: -80px; opacity: 0; }
+        }
+
+        @keyframes fazer2 {
+            0% { left: 0; }
+            100% { left: -100px; opacity: 0; }
+        }
+
+        @keyframes fazer3 {
+            0% { left: 0; }
+            100% { left: -50px; opacity: 0; }
+        }
+
+        @keyframes fazer4 {
+            0% { left: 0; }
+            100% { left: -150px; opacity: 0; }
+        }
+
+        @keyframes speeder {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -3px) rotate(-1deg); }
+            20% { transform: translate(-2px, 0px) rotate(1deg); }
+            30% { transform: translate(1px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 3px) rotate(-1deg); }
+            60% { transform: translate(-1px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-2px, -1px) rotate(1deg); }
+            90% { transform: translate(2px, 1px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        @keyframes lf {
+            0% { left: 200%; }
+            100% { left: -200%; opacity: 0; }
+        }
+        @keyframes lf2 {
+            0% { left: 200%; }
+            100% { left: -200%; opacity: 0; }
+        }
+        @keyframes lf3 {
+            0% { left: 200%; }
+            100% { left: -100%; opacity: 0; }
+        }
+        @keyframes lf4 {
+            0% { left: 200%; }
+            100% { left: -100%; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Preloader Element -->
+<div id="preloader" class="preloader">
+  <div class='body'>
+    <span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div class='base'>
+      <span></span>
+      <div class='face'></div>
+    </div>
+  </div>
+  <div class='longfazers'>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <h1>Redirecting</h1>
+</div>
+
+<!--Navbar starts-->	
+<nav class="fixed top-0 left-0 right-0 w-full bg-transparent backdrop-blur-sm z-50 px-4 py-4 transition-all duration-300">
+  <div class="container max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Logo with Wind Symbol -->
+    <a href="#" class="text-blue-600 flex items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-wind w-8 h-8 mr-3"
+      >
+        <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+        <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+        <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+      </svg>
+      <span class="font-medium text-3xl tracking-tight">FuelPro</span>
+    </a>
+
+    <!-- Main Navigation Links -->
+    <ul class="hidden lg:flex space-x-8">
+      <li>
+        <a
+          href="/"
+          class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+          onclick="showPreloaderOnLogin()">Home</a
+        >
+      </li>
+      <li>
+        <a
+          th:href="@{/bookings/dashboard/ADMIN/{id}(id=${userId})}"
+          class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+          onclick="showPreloaderOnLogin()">Dashboard</a
+        >
+      </li>
+      <li>
+        <a
+          th:href="@{/cylindermanage/{id}(id=${userId})}"
+          class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+          onclick="showPreloaderOnLogin()">Cylinder Management</a
+        >
+      </li>
+      <li>
+        <a
+          th:href="@{/suppliermanage/{id}(id=${userId})}"
+          class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+          onclick="showPreloaderOnLogin()">Supplier Management</a
+        >
+      </li>
+      <li>
+        <a
+          th:href="@{/reportmanage/{id}(id=${userId})}"
+          class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+          onclick="showPreloaderOnLogin()">Report Management</a
+        >
+      </li>
+    </ul>
+
+    <!-- Login Button with Mobile Menu Button -->
+    <div class="flex items-center">
+      <a th:href="@{/bookings/login}" onclick="showPreloaderOnLogin()" class="hover:bg-red-600 px-3 py-2 rounded-md transition duration-300 flex items-center text-red-200">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+        Logout
+      </a>
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden text-gray-800" id="mobile-menu-button">
+        <svg
+          class="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>	
+<!--Navbar ends-->
+
+<div class="pt-24">
+    <div class="form-container animate-fade-in">
+        <h1 class="page-title text-center w-full">Add New Supplier</h1>
+        
+        <form th:action="@{/suppliers/add/{id}(id=${userId})}" method="post" class="mt-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="form-label">Supplier Name:</label>
+                    <input type="text" class="form-input" id="name" name="name" required>
+                </div>
+
+                <div>
+                    <label for="contactPerson" class="form-label">Contact Person:</label>
+                    <input type="text" class="form-input" id="contactPerson" name="contactPerson" required>
+                </div>
+
+                <div>
+                    <label for="phNo" class="form-label">Phone Number:</label>
+                    <input type="text" class="form-input" id="phNo" name="phNo" required>
+                </div>
+
+                <div>
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-input" id="email" name="email" required>
+                </div>
+
+                <div>
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" class="form-input" id="address" name="address" required>
+                </div>
+
+                <div>
+                    <label for="licenseNumber" class="form-label">License Number (4 to 9 digits):</label>
+                    <input type="number" class="form-input" id="licenseNumber" name="licenseNumber" min="1000" max="999999999" step="1" placeholder="Enter a 4 to 9 digit license number" required>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                <button type="submit" class="action-button">
+                    Add Supplier &nbsp; <i class="fa-solid fa-plus"></i>
+                </button>
+                
+                <a th:href="@{/suppliers/viewAll/{id}(id=${userId})}" class="secondary-button" onclick="showPreloaderOnLogin()">
+                    Supplier List &nbsp; <i class="fa-solid fa-table-list"></i>
+                </a>
+                
+                <a th:href="@{/suppliermanage/{id}(id=${userId})}" class="cancel-button" onclick="showPreloaderOnLogin()">
+                    Cancel &nbsp; <i class="fa-solid fa-xmark"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+  function showPreloaderOnLogin() {
+    // Show the preloader
+    setTimeout(function() {
+        document.getElementById("preloader").style.display = "flex";
+    }, 1000);
+    document.getElementById("preloader").style.display = "none";
+    return true;
+  }
+</script>
+
+</body>
+</html>

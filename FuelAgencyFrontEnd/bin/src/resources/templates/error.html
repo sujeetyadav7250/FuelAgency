@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #F8D7DA;
+            font-family: "Poppins", sans-serif;
+        }
+        .error-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="error-container">
+            <h2>⚠️ Oops! Something went wrong.</h2>
+            <p th:text="${errorMessage}">We're sorry, but an error occurred while processing your request.</p>
+            <a href="/" class="btn btn-primary">Go Home</a>
+        </div>
+    </div>
+    
+    <script th:if="${errorMessage}">
+        // Show alert message with the error
+        window.onload = function() {
+            alert(document.querySelector('p[th\\:text]').textContent);
+        }
+    </script>
+</body>
+</html>

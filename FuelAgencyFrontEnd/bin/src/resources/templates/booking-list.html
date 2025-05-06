@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking List</title>
+    <!-- Using specific version of Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <!-- Fallback to include Tailwind CSS directly if the CDN script fails -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Enhanced 3D title styles */
+        .title-container {
+            text-align: center;
+            perspective: 800px;
+            margin-bottom: 3rem;
+        }
+        
+        .page-title {
+			position: relative;
+			display: inline-block;
+			margin-bottom: 2rem;
+			text-align: center;
+			font-weight: 700;
+			color: #2563eb;
+			font-size: 2.5rem;
+        }
+        
+        .page-title::after {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 100px;
+			height: 4px;
+			background: linear-gradient(to right, #3b82f6, #6366f1);
+			border-radius: 2px;
+        }
+        
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) rotateX(10deg); }
+            50% { transform: translateY(-15px) rotateX(15deg); }
+        }
+        
+        @keyframes titleRotate {
+            0% { transform: rotateY(-5deg) rotateX(10deg); }
+            100% { transform: rotateY(5deg) rotateX(5deg); }
+        }
+        
+        @keyframes glowEffect {
+            0% { opacity: 0.7; filter: blur(2px); }
+            100% { opacity: 1; filter: blur(3px); }
+        }
+        
+        .table-container {
+            border-radius: 16px;
+            background: white;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .table-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .status-badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            display: inline-block;
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+        }
+        
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Table header and row styles */
+        th {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95rem;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover td {
+            background-color: #f9fafb;
+        }
+        
+        /* Back button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            color: #4b5563;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .back-button:hover {
+            background: #f9fafb;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <!-- Enhanced 3D animated title -->
+    <div class="title-container">
+        <h1 class="page-title">Booking List</h1>
+    </div>
+    
+    <div class="table-container">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Booking Date</th>
+                    <th>Delivery Date</th>
+                    <th>Delivery Option</th>
+                    <th>Time Slot</th>
+                    <th>Payment Mode</th>
+                    <th>Payment Status</th>
+                    <th>Booking Status</th>
+                    <th>Bill Amount</th>
+                    <th>Bill</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <!-- ✅ Show a message if no bookings exist -->
+                    <tr th:if="${bookings == null or bookings.isEmpty()}">
+                        <td colspan="10" class="text-center text-gray-500 py-8">No bookings found.</td>
+                    </tr>
+
+                    <tr th:each="booking : ${bookings}">
+                        <td th:text="${booking.bookingId}"></td>
+                        <td th:text="${booking.bookingDate}"></td>
+                        <td th:text="${booking.deliveryDate}"></td>
+                        <td th:text="${booking.deliveryOption}"></td>
+                        <td th:text="${booking.timeSlot}"></td>
+                        <td th:text="${booking.paymentMode}"></td>
+
+                        <!-- ✅ Payment Status -->
+                        <td>
+                            <span th:if="${booking.paymentStatus != null}"
+                                  class="status-badge"
+                                  th:classappend="${booking.paymentStatus == 'FAILED' ? 'bg-red-500' :
+                                              (booking.paymentStatus == 'PENDING' ? 'bg-yellow-500' : 'bg-green-500')}"
+                                  th:text="${booking.paymentStatus}">
+                            </span>
+                            <span th:if="${booking.paymentStatus == null}" class="status-badge bg-gray-400">UNKNOWN</span>
+                        </td>
+
+                        <!-- ✅ Booking Status -->
+                        <td>
+                            <span th:if="${booking.bookingStatus != null}"
+                                  class="status-badge"
+                                  th:classappend="${booking.bookingStatus == 'CONFIRMED' ? 'bg-green-500' :
+                                              (booking.bookingStatus == 'PENDING' ? 'bg-yellow-500' :
+                                              (booking.bookingStatus == 'CANCELLED' ? 'bg-red-500' : 'bg-blue-500'))}"
+                                  th:text="${booking.bookingStatus}">
+                            </span>
+                            <span th:if="${booking.bookingStatus == null}" class="status-badge bg-gray-400">PENDING</span>
+                        </td>
+
+                        <!-- ✅ Bill Amount -->
+                        <td>
+                            <span th:if="${booking.bill != null}" th:text="${booking.bill.totalPrice}" class="font-medium"></span>
+                            <span th:if="${booking.bill == null}" class="text-gray-400">No Bill</span>
+                        </td>
+
+                        <!-- ✅ View Bill Button -->
+                        <td>
+                            <a th:if="${booking.bill != null}" th:href="@{bills/{id}(id=${booking.bill.billId})}"
+                               class="view-btn">
+                                View Bill
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </a>
+                            <span th:if="${booking.bill == null}" class="text-gray-400">N/A</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Back button to return to dashboard -->
+    <div class="mt-6">
+        <a href="javascript:history.back()" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Dashboard
+        </a>
+    </div>
+</div>
+</body>
+</html>
+

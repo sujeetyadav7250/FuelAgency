@@ -1,0 +1,3384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuel Agency - Dribbble Inspired</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+      .bento-card {
+        background-color: #f5f5f7;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .bento-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      @media (min-width: 768px) {
+        .bento-grid {
+          grid-template-columns: repeat(4, 1fr);
+          grid-auto-rows: minmax(180px, auto);
+        }
+
+        .md\:col-span-2 {
+          grid-column: span 2;
+        }
+
+        .md\:row-span-2 {
+          grid-row: span 2;
+        }
+      }
+      @media (max-width: 768px) {
+        .bento-grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+      .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 8px;
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .feature-text {
+        padding-top: 1px;
+      }
+      @media (max-width: 1024px) {
+        .bento-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .bento-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .apple-check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      @media (max-width: 1024px) {
+        .bento-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .bento-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      section {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+          "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .bento-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .col-span-2,
+        .col-span-3 {
+          grid-column: span 1;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900">
+    <!-- 1. Header  -->
+    <nav
+      class="fixed top-0 left-0 right-0 w-full bg-transparent backdrop-blur-sm z-50 px-4 py-4 transition-all duration-300"
+    >
+      <div
+        class="container max-w-7xl mx-auto flex items-center justify-between"
+      >
+        <!-- Logo with Wind Symbol -->
+        <a href="#" class="text-blue-600 flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-wind w-8 h-8 mr-3"
+          >
+            <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+            <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+            <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+          </svg>
+          <span class="font-medium text-3xl tracking-tight">FuelPro</span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <ul class="hidden lg:flex space-x-8">
+          <li>
+            <a
+              href="#"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#services"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >Services</a
+            >
+          </li>
+          <li>
+            <a
+              href="#products"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >Products</a
+            >
+          </li>
+          <li>
+            <a
+              href="#safety"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >Safety</a
+            >
+          </li>
+          <li>
+            <a
+              href="#support"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >Support</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="#blog"
+              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+              >Blog</a
+            >
+          </li>
+        </ul>
+
+        <!-- Login Button with Mobile Menu Button -->
+        <div class="flex items-center">
+          <a
+            th:href="@{/bookings/login}"
+            class="hidden md:inline-flex px-6 py-3 text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition-colors"
+            >Log In</a
+          >
+          <!-- Mobile Menu Button -->
+          <button class="lg:hidden text-gray-800" id="mobile-menu-button">
+            <svg
+              class="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="py-20 px-6 bg-white pt-28 md:pt-32">
+      <div class="container mx-auto max-w-6xl">
+        <!-- Tag -->
+        <div class="flex justify-center mb-6">
+          <div
+            class="bg-blue-50 text-blue-400 px-6 py-4 rounded-full flex items-center shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-12 h-12 mr-4 text-blue-600"
+            >
+              <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+              <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+              <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+            </svg>
+            <span
+              class="font-bold text-7xl tracking-tight bg-blue-600 text-transparent bg-clip-text"
+              >FuelPro</span
+            >
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-6 tracking-tight leading-tight"
+        >
+          <span class="text-gray-900">Your Reliable </span>
+          <span class="text-blue-600">Fuel</span>
+          <span class="text-gray-900"> Partner</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p
+          class="text-gray-600 text-center max-w-3xl mx-auto text-xl md:text-2xl mb-12 leading-relaxed tracking-tight font-light"
+        >
+          Streamline your fuel cylinder bookings with our advanced,
+          user-friendly platform. Fast deliveries, transparent billing, and
+          exceptional service.
+        </p>
+
+        <!-- Video Container -->
+        <div
+          class="relative w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl"
+        >
+          <video
+            class="w-full"
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="/path-to-fallback-image.jpg"
+          >
+            <source src="FuelPro.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          <!-- Optional: Video Controls -->
+          <div class="absolute bottom-4 right-4">
+            <button
+              class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-70 focus:outline-none"
+              id="videoToggle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional: JavaScript for video control -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const video = document.querySelector("video");
+        const toggleButton = document.getElementById("videoToggle");
+
+        toggleButton.addEventListener("click", () => {
+          if (video.paused) {
+            video.play();
+            toggleButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>`;
+          } else {
+            video.pause();
+            toggleButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>`;
+          }
+        });
+      });
+    </script>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 px-6">
+      <div class="py-24 max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="mb-20">
+          <h2
+            class="text-6xl md:text-7xl font-bold text-gray-900 tracking-tight mb-6 leading-none"
+          >
+            Services.
+          </h2>
+          <p
+            class="text-2xl md:text-3xl text-gray-500 font-normal tracking-tight max-w-3xl"
+          >
+            Experience exceptional convenience with thoughtfully designed fuel
+            solutions.
+          </p>
+        </div>
+
+        <!-- Bento Grid Layout - Modified for equal sizes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card 1: Easy Booking -->
+          <div
+            class="bento-card bg-gradient-to-br from-indigo-50 to-indigo-100"
+          >
+            <div class="p-8 h-full flex flex-col">
+              <div
+                class="rounded-2xl bg-indigo-600 w-14 h-14 flex items-center justify-center mb-6"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-7 w-7 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+                  <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+                  <circle cx="12" cy="12" r="2"></circle>
+                  <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+                  <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path>
+                </svg>
+              </div>
+
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Easy Booking.
+              </h3>
+              <p class="text-gray-600 mb-6 font-light">
+                Book fuel cylinders with our intuitive interface designed for
+                simplicity and efficiency.
+              </p>
+
+              <div class="space-y-3 mb-6 flex-grow">
+                <div class="feature-item">
+                  <div class="feature-icon bg-indigo-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-indigo-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Simple 3-step process</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon bg-indigo-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-indigo-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800">Available 24/7</span>
+                </div>
+              </div>
+
+              <a
+                href="#"
+                class="inline-flex items-center text-indigo-600 font-medium mt-auto arrow-link group"
+              >
+                Book now
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1 transition-transform duration-200 group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Manage Orders -->
+          <div class="bento-card bg-gradient-to-br from-blue-50 to-blue-100">
+            <div class="p-8 h-full flex flex-col">
+              <div
+                class="rounded-2xl bg-blue-600 w-14 h-14 flex items-center justify-center mb-6"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-7 w-7 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Manage Orders.
+              </h3>
+              <p class="text-gray-600 mb-6 font-light">
+                View, update, or cancel your bookings with complete flexibility.
+              </p>
+
+              <div class="space-y-3 mb-6 flex-grow">
+                <div class="feature-item">
+                  <div class="feature-icon bg-blue-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-blue-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Real-time tracking</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon bg-blue-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-blue-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Modify delivery details</span
+                  >
+                </div>
+              </div>
+
+              <a
+                href="#"
+                class="inline-flex items-center text-blue-600 font-medium mt-auto arrow-link group"
+              >
+                Manage orders
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1 transition-transform duration-200 group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Fast Delivery -->
+          <div class="bento-card bg-gradient-to-br from-rose-50 to-rose-100">
+            <div class="p-8 h-full flex flex-col">
+              <div
+                class="rounded-2xl bg-rose-600 w-14 h-14 flex items-center justify-center mb-6"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-7 w-7 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              </div>
+
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Fast Delivery.
+              </h3>
+              <p class="text-gray-600 mb-6 font-light">
+                Choose delivery options that fit your schedule and urgency.
+              </p>
+
+              <div class="space-y-3 mb-6 flex-grow">
+                <div class="feature-item">
+                  <div class="feature-icon bg-rose-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-rose-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Standard (24-48 hours)</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon bg-rose-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-rose-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Express (4-6 hours)</span
+                  >
+                </div>
+              </div>
+
+              <a
+                href="#"
+                class="inline-flex items-center text-rose-600 font-medium mt-auto arrow-link group"
+              >
+                Delivery options
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1 transition-transform duration-200 group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Billing & Payments -->
+          <div class="bento-card bg-gradient-to-br from-amber-50 to-amber-100">
+            <div class="p-8 h-full flex flex-col">
+              <div
+                class="rounded-2xl bg-amber-600 w-14 h-14 flex items-center justify-center mb-6"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-7 w-7 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+              </div>
+
+              <h3 class="text-2xl font-semibold text-gray-900 mb-3">
+                Billing & Payments.
+              </h3>
+              <p class="text-gray-600 mb-6 font-light">
+                Manage payments securely with multiple options and detailed
+                invoicing.
+              </p>
+
+              <div class="space-y-3 mb-6 flex-grow">
+                <div class="feature-item">
+                  <div class="feature-icon bg-amber-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-amber-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Secure payment gateway</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon bg-amber-100">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 text-amber-600"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="feature-text text-gray-800"
+                    >Detailed invoicing</span
+                  >
+                </div>
+              </div>
+
+              <a
+                href="#"
+                class="inline-flex items-center text-amber-600 font-medium mt-auto arrow-link group"
+              >
+                Manage payments
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1 transition-transform duration-200 group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Full-width CTA Card -->
+          <div
+            class="bento-card col-span-1 md:col-span-2 lg:col-span-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 mt-6"
+          >
+            <div
+              class="p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between"
+            >
+              <div class="text-center md:text-left mb-6 md:mb-0">
+                <h3 class="text-2xl lg:text-3xl font-semibold text-white mb-4">
+                  Ready to get started?
+                </h3>
+                <p
+                  class="text-gray-300 text-base lg:text-lg max-w-xl font-light"
+                >
+                  Join thousands of satisfied customers who enjoy our seamless
+                  fuel cylinder services.
+                </p>
+              </div>
+              <button
+                class="bg-white text-gray-900 px-6 py-3 rounded-full font-medium text-base lg:text-lg hover:shadow-lg transition-all hover:bg-gray-100 hover:scale-105"
+              >
+                Create an account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-20 px-8">
+      <div class="max-w-5xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-24">
+          <h2
+            class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-neutral-900 leading-none"
+          >
+            How it works.
+          </h2>
+          <p
+            class="mt-8 text-xl sm:text2xl md:text-3xl text-neutral-500 max-w-3xl mx-auto font-light tracking-tight leading-tight"
+          >
+            Booking a fuel cylinder with Fuel Pro is simple and intuitive.
+          </p>
+        </div>
+
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <!-- Step 1 -->
+          <div
+            class="p-10 bg-gradient-to-br from-sky-50 to-sky-100 rounded-2xl"
+          >
+            <div
+              class="w-14 h-14 rounded-full bg-sky-500 flex items-center justify-center mb-7"
+            >
+              <span class="text-white font-medium text-xl">1</span>
+            </div>
+            <h3
+              class="text-2xl font-medium text-neutral-900 mb-4 tracking-tight"
+            >
+              Register your account.
+            </h3>
+            <p class="text-neutral-600 text-lg leading-relaxed">
+              Sign up and complete your profile with delivery information and
+              preferences.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div
+            class="p-10 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl"
+          >
+            <div
+              class="w-14 h-14 rounded-full bg-indigo-500 flex items-center justify-center mb-7"
+            >
+              <span class="text-white font-medium text-xl">2</span>
+            </div>
+            <h3
+              class="text-2xl font-medium text-neutral-900 mb-4 tracking-tight"
+            >
+              Get Approved.
+            </h3>
+            <p class="text-neutral-600 text-lg leading-relaxed">
+              Get username and password after getting verified!
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div
+            class="p-10 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl"
+          >
+            <div
+              class="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center mb-7"
+            >
+              <span class="text-white font-medium text-xl">3</span>
+            </div>
+            <h3
+              class="text-2xl font-medium text-neutral-900 mb-4 tracking-tight"
+            >
+              Book your cylinder.
+            </h3>
+            <p class="text-neutral-600 text-lg leading-relaxed">
+              Select cylinder type, delivery option, time slot, and preferred
+              payment method.
+            </p>
+          </div>
+
+          <!-- Step 4 (fixed the number from 3 to 4) -->
+          <div
+            class="p-10 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl"
+          >
+            <div
+              class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center mb-7"
+            >
+              <span class="text-white font-medium text-xl">4</span>
+            </div>
+            <h3
+              class="text-2xl font-medium text-neutral-900 mb-4 tracking-tight"
+            >
+              Receive delivery.
+            </h3>
+            <p class="text-neutral-600 text-lg leading-relaxed">
+              Track your delivery in real-time and receive your cylinder at your
+              doorstep.
+            </p>
+          </div>
+        </div>
+
+        <!-- Newsletter Signup / CTA -->
+        <div
+          class="p-12 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white rounded-2xl"
+        >
+          <div class="max-w-3xl mx-auto text-center">
+            <h3 class="text-3xl font-medium mb-4 tracking-tight">
+              Ready to simplify your fuel needs?
+            </h3>
+            <p class="text-indigo-100 text-xl mb-8 font-light">
+              Join thousands of customers who have switched to a better way to
+              manage their fuel deliveries.
+            </p>
+            <a
+              href="#"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-600 font-medium text-lg rounded-full hover:bg-opacity-90 transition-colors shadow-lg"
+            >
+              Get Started Now
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 ml-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="py-32 px-6">
+      <div class="w-full max-w-7xl mx-auto">
+        <!-- Section Header in Apple Style -->
+        <div class="mb-20 text-center md:text-left">
+          <h1
+            class="text-6xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight leading-none"
+          >
+            Products.
+          </h1>
+          <h2
+            class="text-3xl md:text-4xl text-gray-500 font-light tracking-tight max-w-3xl"
+          >
+            Take a look at what's new right now.
+          </h2>
+        </div>
+
+        <!-- Products Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- LPG Cylinders - Larger card -->
+          <div
+            class="bg-gradient-to-br from-blue-50 to-blue-100 p-10 relative rounded-3xl col-span-1 md:col-span-2 lg:col-span-2"
+          >
+            <div class="mb-8">
+              <h3
+                class="text-3xl font-semibold text-gray-900 mb-3 tracking-tight"
+              >
+                LPG Cylinders
+              </h3>
+              <p class="text-blue-600 mb-4 text-lg">
+                Clean, efficient, and reliable energy for homes and businesses.
+              </p>
+              <p class="text-gray-700 text-xl font-medium">From ₹999.00*</p>
+            </div>
+            <div class="mt-6 flex justify-center overflow-hidden">
+              <img
+                src="https://media.istockphoto.com/id/1284576568/photo/different-types-of-red-gas-bottles-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=2ScR49jvIMp0CcxP64LWON7ruvQOGftLbZECH29q6kY="
+                alt="LPG Cylinders"
+                class="rounded-2xl object-cover h-72 w-full"
+              />
+            </div>
+            <div class="mt-10 flex justify-between items-center">
+              <a
+                href="#"
+                class="text-blue-600 font-medium flex items-center text-lg"
+              >
+                Learn more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+              <button
+                class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg"
+              >
+                Buy
+              </button>
+            </div>
+          </div>
+
+          <!-- Portable LPG Cylinders -->
+          <div
+            class="bg-gradient-to-br from-amber-50 to-orange-100 p-10 relative rounded-3xl"
+          >
+            <div class="mb-8">
+              <h3
+                class="text-3xl font-semibold text-gray-900 mb-3 tracking-tight"
+              >
+                Portable LPG Cylinders
+              </h3>
+              <p class="text-blue-600 mb-4 text-lg">
+                Lightweight, compact, designed for ultimate convenience.
+              </p>
+              <p class="text-gray-700 text-xl font-medium">From ₹500.00*</p>
+            </div>
+            <div class="mt-6 flex justify-center overflow-hidden">
+              <img
+                class="rounded-2xl object-cover h-72 w-full"
+                src="https://image.made-in-china.com/202f0j00NfFYnpRrVTgU/12-5kg-Cooking-LPG-Gas-Cylinder-HP295-Portable-LPG-Cylinder-Gas-Bottle-LPG-Tank-Manufacturer.webp"
+                alt="Portable LPG Cylinders"
+              />
+            </div>
+            <div class="mt-10 flex justify-between items-center">
+              <a
+                href="#"
+                class="text-blue-600 font-medium flex items-center text-lg"
+              >
+                Learn more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+              <button
+                class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg"
+              >
+                Buy
+              </button>
+            </div>
+          </div>
+
+          <!-- Gas Leak Detectors -->
+          <div class="bg-black p-10 relative text-white rounded-3xl">
+            <div class="mb-8">
+              <h3 class="text-3xl font-semibold mb-3 tracking-tight">
+                Gas Leak Detectors
+              </h3>
+              <p class="text-blue-400 mb-4 text-lg">
+                Smart gas leak detection alarms for homes and businesses.
+              </p>
+              <p class="text-gray-400 text-xl font-medium">From ₹1199.00*</p>
+            </div>
+            <div class="mt-6 flex justify-center overflow-hidden">
+              <img
+                src="https://5.imimg.com/data5/SELLER/Default/2024/2/390308507/OB/ZA/IB/212946879/one-touch-lpg-gas-leak-detector-500x500.jpg"
+                alt="Gas Leak Detectors"
+                class="object-cover rounded-2xl h-72 w-full"
+              />
+            </div>
+            <div class="mt-10 flex justify-between items-center">
+              <a
+                href="#"
+                class="text-blue-400 font-medium flex items-center text-lg"
+              >
+                Learn more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+              <button
+                class="bg-white text-black px-6 py-3 rounded-full font-medium text-lg"
+              >
+                Buy
+              </button>
+            </div>
+          </div>
+
+          <!-- Composite Cylinders - New Card -->
+          <div
+            class="bg-gradient-to-br from-purple-50 to-purple-100 p-10 relative rounded-3xl"
+          >
+            <div class="mb-8">
+              <h3
+                class="text-3xl font-semibold text-gray-900 mb-3 tracking-tight"
+              >
+                Composite Cylinders
+              </h3>
+              <p class="text-blue-600 mb-4 text-lg">
+                Lightweight and transparent. See your fuel level at a glance.
+              </p>
+              <p class="text-gray-700 text-xl font-medium">From ₹1599.00*</p>
+            </div>
+            <div class="mt-6 flex justify-center overflow-hidden">
+              <img
+                src="https://www.supreme.co.in/uploads/images/fDwt4l8QXl3VrBrfT6bxYDdKPxBYFTBt5tk8FDNF.jpg"
+                alt="Composite Cylinders"
+                class="object-cover rounded-2xl h-72 w-full"
+              />
+            </div>
+            <div class="mt-10 flex justify-between items-center">
+              <a
+                href="#"
+                class="text-blue-600 font-medium flex items-center text-lg"
+              >
+                Learn more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+              <button
+                class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg"
+              >
+                Buy
+              </button>
+            </div>
+          </div>
+
+          <!-- Compare Products Card -->
+          <div
+            class="bg-gradient-to-br from-gray-100 to-gray-200 p-10 flex flex-col justify-center items-center text-center rounded-3xl"
+          >
+            <div class="mb-8">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-16 w-16 text-gray-700 mb-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                />
+              </svg>
+              <h3
+                class="text-3xl font-semibold text-gray-900 mb-4 tracking-tight"
+              >
+                Compare Products
+              </h3>
+              <p class="text-gray-600 mb-8 text-lg">
+                Find the perfect cylinder for your needs by comparing features,
+                capacities, and prices.
+              </p>
+            </div>
+            <button
+              class="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition duration-300 text-lg"
+            >
+              Compare Now
+            </button>
+          </div>
+
+          <!-- Accessories Card -->
+          <div class="bg-gray-900 p-10 text-white rounded-3xl">
+            <div class="mb-8">
+              <h3 class="text-3xl font-semibold mb-3 tracking-tight">
+                Gas Accessories
+              </h3>
+              <p class="text-blue-400 mb-4 text-lg">
+                Regulators, hoses, and safety devices for complete setup.
+              </p>
+              <p class="text-gray-400 text-xl font-medium">From ₹299.00*</p>
+            </div>
+            <div class="mt-6 flex justify-center overflow-hidden">
+              <img
+                src="https://rukminim3.flixcart.com/image/850/1000/km0x5zk0/gas-stove/e/3/i/2-dharam-king-lpg-stove-2-burner-manual-bharatgas-original-imagfyufdhx3p2zs.jpeg?q=90&crop=false"
+                alt="Gas Accessories"
+                class="object-cover rounded-2xl h-72 w-full"
+              />
+            </div>
+            <div class="mt-10 flex justify-between items-center">
+              <a
+                href="#"
+                class="text-blue-400 font-medium flex items-center text-lg"
+              >
+                Learn more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+              <button
+                class="bg-white text-black px-6 py-3 rounded-full font-medium text-lg"
+              >
+                Buy
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apple-style Footnote -->
+        <div class="mt-16 text-sm text-gray-500 leading-relaxed">
+          * Price includes applicable taxes. Delivery charges may apply.
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS  -->
+    <section class="bg-gradient-to-br from-purple-50 to-blue-50">
+      <div class="py-16 sm:py-24 md:py-32">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10">
+          <h2
+            class="text-5xl sm:text-6xl md:text-7xl font-bold text-center mb-4 sm:mb-6 tracking-tight leading-none text-gray-900"
+          >
+            The company difference.
+          </h2>
+          <p
+            class="text-xl sm:text-2xl md:text-3xl text-gray-500 text-center mb-16 sm:mb-20 md:mb-24 font-light tracking-tight max-w-3xl mx-auto"
+          >
+            Even more reasons to choose us.
+          </p>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          >
+            <!-- Years Experience -->
+            <div
+              class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow sm:col-span-2 sm:row-span-2"
+            >
+              <div class="p-6 sm:p-8 h-full flex flex-col">
+                <div
+                  class="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-blue-600 flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="sm:w-8 sm:h-8"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <h3 class="text-base sm:text-lg font-medium text-blue-600 mb-2">
+                  Experience.
+                </h3>
+                <div
+                  class="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 sm:mb-4 mt-auto"
+                >
+                  40
+                </div>
+                <p class="text-base sm:text-lg md:text-xl text-gray-700">
+                  Years of industry experience helping clients succeed.
+                </p>
+                <div class="mt-auto pt-4 sm:pt-6">
+                  <a
+                    href="#"
+                    class="group inline-flex items-center text-blue-600 font-medium"
+                  >
+                    Learn more
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 sm:h-5 sm:w-5 ml-1 group-hover:translate-x-0.5 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clients Served -->
+            <div
+              class="bg-gradient-to-br from-green-100 to-green-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow sm:col-span-2 lg:col-span-2"
+            >
+              <div class="p-6 sm:p-8 flex flex-col">
+                <div
+                  class="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-green-600 flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="sm:w-8 sm:h-8"
+                  >
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <h3
+                  class="text-base sm:text-lg font-medium text-green-600 mb-2"
+                >
+                  Clients served.
+                </h3>
+                <div
+                  class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4"
+                >
+                  470,000+
+                </div>
+                <p class="text-base sm:text-lg md:text-xl text-gray-700">
+                  Happy customers and growing.
+                </p>
+              </div>
+            </div>
+
+            <!-- Distribution Centers -->
+            <div
+              class="bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div class="p-6 sm:p-8 h-full flex flex-col">
+                <div
+                  class="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-orange-500 flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="sm:w-8 sm:h-8"
+                  >
+                    <rect
+                      x="3"
+                      y="3"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                </div>
+                <h3
+                  class="text-base sm:text-lg font-medium text-orange-600 mb-2"
+                >
+                  Global reach.
+                </h3>
+                <div class="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">
+                  17
+                </div>
+                <p class="text-base sm:text-lg text-gray-700">
+                  Distribution centers worldwide.
+                </p>
+              </div>
+            </div>
+
+            <!-- Customer Satisfaction -->
+            <div
+              class="bg-gradient-to-br from-purple-100 to-purple-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div class="p-6 sm:p-8 h-full flex flex-col">
+                <div
+                  class="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-purple-600 flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="sm:w-8 sm:h-8"
+                  >
+                    <path
+                      d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+                    ></path>
+                  </svg>
+                </div>
+                <h3
+                  class="text-base sm:text-lg font-medium text-purple-600 mb-2"
+                >
+                  Satisfaction.
+                </h3>
+                <div class="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">
+                  100%
+                </div>
+                <p class="text-base sm:text-lg text-gray-700">
+                  Customer satisfaction rate.
+                </p>
+              </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div
+              class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow col-span-1 sm:col-span-2 lg:col-span-4"
+            >
+              <div
+                class="p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between"
+              >
+                <div class="mb-4 sm:mb-0 text-center sm:text-left">
+                  <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+                    Ready to experience the difference?
+                  </h3>
+                  <p class="text-blue-100 text-base sm:text-lg">
+                    Join 470,000+ satisfied customers today.
+                  </p>
+                </div>
+                <button
+                  class="bg-white text-blue-600 px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium hover:shadow-lg transition-all"
+                >
+                  Get started
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section id="safety" class="py-24 px-6 max-w-7xl mx-auto">
+      <!-- Section Heading -->
+      <div class="mb-16">
+        <h2 class="text-7xl font-bold tracking-tight text-[#1d1d1f] mb-4">
+          Safety.
+        </h2>
+        <p class="text-xl text-[#86868b] max-w-2xl">
+          Your safety is our priority, with comprehensive resources and
+          guidelines for proper cylinder handling.
+        </p>
+      </div>
+
+      <!-- Bento Grid Layout for Safety -->
+      <div class="bento-grid">
+        <!-- Safety Tips Card -->
+        <div
+          class="bento-card col-span-2 bg-gradient-to-br from-[#f5f5f7] to-[#ebebeb] p-8"
+        >
+          <div
+            class="bg-blue-600 w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4">Safety Guidelines.</h3>
+          <p class="text-[#86868b] mb-6">
+            Essential safety practices for handling and storing fuel cylinders
+            in residential and commercial spaces.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Always keep cylinders in ventilated areas</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Check for leaks regularly using soapy water</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Keep away from heat sources and flames</span>
+            </li>
+          </ul>
+          <a href="#" class="text-blue-600 font-medium flex items-center group">
+            View complete guidelines
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Emergency Help Card -->
+        <div
+          class="bento-card bg-gradient-to-br from-[#fee2e2] to-[#fecaca] p-8"
+        >
+          <div
+            class="bg-red-600 w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4">Emergency Response.</h3>
+          <p class="text-[#86868b] mb-6">
+            24/7 emergency response team for urgent situations requiring
+            immediate assistance.
+          </p>
+          <div class="bg-white bg-opacity-60 rounded-2xl p-4 mb-6">
+            <p class="text-lg font-semibold text-red-600">Emergency Hotline</p>
+            <p class="text-2xl font-bold">1-800-FUEL-HELP</p>
+          </div>
+          <a
+            href="#"
+            class="inline-block bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-full transition-all"
+          >
+            Contact emergency team
+          </a>
+        </div>
+
+        <!-- Maintenance Card -->
+        <div
+          class="bento-card bg-gradient-to-br from-[#fef3c7] to-[#fde68a] p-8"
+        >
+          <div
+            class="bg-amber-500 w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-4">Maintenance Tips.</h3>
+          <p class="text-[#86868b] mb-6">
+            Regular maintenance advice to ensure optimal performance of your
+            fuel systems.
+          </p>
+          <a
+            href="#"
+            class="text-amber-600 font-medium flex items-center group"
+          >
+            View maintenance schedule
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Safety CTA Banner -->
+      <div
+        class="mt-16 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 text-center text-white"
+      >
+        <h3 class="text-2xl font-semibold mb-4">
+          Need personalized safety guidance?
+        </h3>
+        <p class="mb-6 max-w-2xl mx-auto">
+          Our certified safety experts are ready to provide customized
+          consultations for your specific requirements.
+        </p>
+        <a
+          href="#"
+          class="inline-block bg-white text-blue-600 font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-all"
+        >
+          Schedule a safety consultation
+        </a>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="py-20 px-4 md:px-6 w-full bg-[#f5f5f7]">
+      <!-- Section Heading -->
+      <div class="max-w-7xl mx-auto mb-12">
+        <h2
+          class="text-5xl md:text-6xl font-bold tracking-tight text-[#1d1d1f] mb-4"
+        >
+          Emergency Support.
+        </h2>
+        <p class="text-lg md:text-xl text-[#86868b] max-w-2xl">
+          24/7 assistance and rapid response resources to help you during gas
+          cylinder emergencies and disasters.
+        </p>
+      </div>
+
+      <!-- Bento Grid Layout -->
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Emergency Response Card -->
+        <div
+          class="col-span-1 md:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#fee2e2] to-[#fecaca] rounded-2xl p-6 md:p-8 shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+        >
+          <div
+            class="bg-red-600 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 md:h-8 md:w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-4">
+            Rapid Emergency Response.
+          </h3>
+          <p class="text-[#86868b] mb-6">
+            Our specialized emergency teams are trained to handle gas leaks,
+            cylinder explosions, and other critical situations, providing
+            immediate on-site assistance.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white bg-opacity-60 rounded-2xl p-4">
+              <p class="text-lg font-semibold text-red-600">
+                Emergency Hotline
+              </p>
+              <p class="text-2xl font-bold">1-800-GAS-HELP</p>
+              <p class="text-sm text-gray-600 mt-2">
+                Available 24/7, 365 days a year
+              </p>
+            </div>
+
+            <div class="bg-white bg-opacity-60 rounded-2xl p-4">
+              <p class="text-lg font-semibold text-red-600">Response Time</p>
+              <p class="text-2xl font-bold">Under 30 minutes</p>
+              <p class="text-sm text-gray-600 mt-2">
+                For urban areas; 60 minutes for rural
+              </p>
+            </div>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-red-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Gas leak containment and hazard neutralization</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-red-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span
+                >Emergency evacuation coordination with local authorities</span
+              >
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-red-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>First aid and medical coordination for injuries</span>
+            </li>
+          </ul>
+
+          <a
+            href="#"
+            class="inline-block bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-full transition-all"
+          >
+            Emergency contact information
+          </a>
+        </div>
+
+        <!-- Crisis Prevention Card -->
+        <div
+          class="col-span-1 bg-gradient-to-br from-[#dbeafe] to-[#bfdbfe] rounded-2xl p-6 md:p-8 shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+        >
+          <div
+            class="bg-blue-600 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 md:h-8 md:w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-4">
+            Crisis Prevention.
+          </h3>
+          <p class="text-[#86868b] mb-6">
+            Proactive measures and safety checks to prevent gas cylinder
+            disasters before they occur.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Free monthly safety inspections</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Leak detection equipment provision</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Valve and regulator safety checks</span>
+            </li>
+          </ul>
+          <a href="#" class="text-blue-600 font-medium flex items-center group">
+            Schedule a safety check
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Disaster Recovery Card -->
+        <div
+          class="col-span-1 bg-gradient-to-br from-[#fef3c7] to-[#fde68a] rounded-2xl p-6 md:p-8 shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+        >
+          <div
+            class="bg-amber-500 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 md:h-8 md:w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-4">
+            Post-Incident Recovery.
+          </h3>
+          <p class="text-[#86868b] mb-6">
+            Comprehensive assistance for rebuilding and recovery after
+            gas-related incidents.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-amber-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Property damage assessment</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-amber-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Insurance claim assistance</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-amber-600 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Temporary gas supply solutions</span>
+            </li>
+          </ul>
+          <a
+            href="#"
+            class="text-amber-600 font-medium flex items-center group"
+          >
+            Recovery services
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Training Card -->
+        <div
+          class="col-span-1 md:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#e9d5ff] to-[#d8b4fe] rounded-2xl p-6 md:p-8 shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+        >
+          <div
+            class="bg-purple-600 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 md:h-8 md:w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-6">
+            Emergency Training Resources.
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div
+              class="bg-white bg-opacity-70 rounded-2xl p-4 md:p-6 hover:bg-opacity-100 transition-all"
+            >
+              <h4 class="text-lg font-semibold mb-2">Safety Drills</h4>
+              <p class="text-[#86868b] mb-4">
+                Practice emergency procedures for gas leaks and explosions.
+              </p>
+              <a
+                href="#"
+                class="text-purple-600 font-medium flex items-center group"
+              >
+                Book a drill
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div
+              class="bg-white bg-opacity-70 rounded-2xl p-4 md:p-6 hover:bg-opacity-100 transition-all"
+            >
+              <h4 class="text-lg font-semibold mb-2">First Response</h4>
+              <p class="text-[#86868b] mb-4">
+                Learn basic first aid for gas-related injuries and burns.
+              </p>
+              <a
+                href="#"
+                class="text-purple-600 font-medium flex items-center group"
+              >
+                Training schedule
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div
+              class="bg-white bg-opacity-70 rounded-2xl p-4 md:p-6 hover:bg-opacity-100 transition-all"
+            >
+              <h4 class="text-lg font-semibold mb-2">Emergency Kits</h4>
+              <p class="text-[#86868b] mb-4">
+                Essential supplies and tools for gas emergency situations.
+              </p>
+              <a
+                href="#"
+                class="text-purple-600 font-medium flex items-center group"
+              >
+                Order kit
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Support Card -->
+        <div
+          class="col-span-1 bg-gradient-to-br from-[#f5f5f7] to-[#ebebeb] rounded-2xl p-6 md:p-8 shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+        >
+          <div
+            class="bg-gray-800 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 md:h-8 md:w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-4">
+            Community Support.
+          </h3>
+          <p class="text-[#86868b] mb-6">
+            Assistance programs for communities affected by gas-related
+            disasters.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-gray-700 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Temporary housing coordination</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-gray-700 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Essential supplies distribution</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-gray-700 mr-2 mt-0.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Community rebuilding initiatives</span>
+            </li>
+          </ul>
+          <a href="#" class="text-gray-700 font-medium flex items-center group">
+            Community resources
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-1 group-hover:ml-2 transition-all"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Support CTA Banner -->
+      <div
+        class="max-w-7xl mx-auto mt-12 bg-gradient-to-r from-red-600 to-pink-600 rounded-3xl p-6 md:p-8 text-center text-white"
+      >
+        <h3 class="text-xl md:text-2xl font-semibold mb-4">
+          Facing a gas emergency right now?
+        </h3>
+        <p class="mb-6 max-w-2xl mx-auto">
+          Our emergency response team is standing by 24/7 to assist with any gas
+          cylinder incident or disaster situation.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+          <a
+            href="tel:18004273435"
+            class="inline-block bg-white text-red-600 font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-all"
+          >
+            Call Emergency Line
+          </a>
+          <a
+            href="#"
+            class="inline-block bg-transparent border-2 border-white text-white font-medium py-3 px-8 rounded-full hover:bg-white hover:bg-opacity-10 transition-all"
+          >
+            Report Incident Online
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US SECTION  -->
+    <section id="about" class="bg-gray-50 py-20 sm:py-28 md:py-36">
+      <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+        <!-- Bold Header Section -->
+        <div class="mb-20 md:mb-28">
+          <h1
+            class="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 tracking-tight mb-6 leading-none"
+          >
+            About us.
+          </h1>
+          <p
+            class="text-xl sm:text-2xl md:text-3xl text-gray-500 font-light tracking-tight leading-tight max-w-3xl"
+          >
+            Your trusted partner in fuel solutions.
+          </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
+          <!-- Image Column -->
+          <div class="w-full lg:w-1/2 relative mb-16 lg:mb-0">
+            <div class="overflow-hidden rounded-3xl shadow-xl">
+              <!-- Using a placeholder image -->
+              <img
+                src="https://www.shutterstock.com/image-vector/diverse-group-employees-engaging-relaxed-600nw-2366849737.jpg"
+                alt="About Us"
+                class="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- ISO Badge -->
+            <div
+              class="absolute bottom-6 right-6 bg-white rounded-2xl shadow-lg p-5 max-w-xs"
+            >
+              <div class="flex items-center gap-4">
+                <div class="bg-teal-600 rounded-full p-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <p class="font-medium text-base text-gray-900">
+                  ISO 9001 Certified
+                </p>
+              </div>
+              <p class="text-base text-gray-600 mt-3 leading-relaxed">
+                Our commitment to quality is backed by international standards
+                and certifications.
+              </p>
+            </div>
+          </div>
+
+          <!-- Text Column -->
+          <div class="w-full lg:w-1/2">
+            <div class="max-w-xl mx-auto lg:mx-0">
+              <p
+                class="text-xl sm:text-2xl text-gray-700 mb-8 leading-relaxed font-light"
+              >
+                With over 15 years of industry experience, FuelPro has
+                established itself as a leader in the fuel sector. We pride
+                ourselves on delivering premium fuel products and exceptional
+                service to businesses and individuals across the country.
+              </p>
+
+              <!-- Feature List -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 mb-14"
+              >
+                <!-- Feature -->
+                <div class="flex gap-5 items-start">
+                  <div class="bg-teal-600 rounded-full p-2 mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xl text-gray-800 font-medium">
+                    Premium quality fuel products
+                  </p>
+                </div>
+
+                <div class="flex gap-5 items-start">
+                  <div class="bg-teal-600 rounded-full p-2 mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xl text-gray-800 font-medium">
+                    Nationwide distribution network
+                  </p>
+                </div>
+
+                <div class="flex gap-5 items-start">
+                  <div class="bg-teal-600 rounded-full p-2 mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xl text-gray-800 font-medium">
+                    Eco-friendly solutions
+                  </p>
+                </div>
+
+                <div class="flex gap-5 items-start">
+                  <div class="bg-teal-600 rounded-full p-2 mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xl text-gray-800 font-medium">
+                    Advanced fuel technologies
+                  </p>
+                </div>
+
+                <div class="flex gap-5 items-start">
+                  <div class="bg-teal-600 rounded-full p-2 mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xl text-gray-800 font-medium">
+                    Exceptional customer service
+                  </p>
+                </div>
+
+                <div class="flex gap-5 items-start">
+                  <div class="bg-teal-600 rounded-full p-2 mt-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xl text-gray-800 font-medium">
+                    Competitive and transparent pricing
+                  </p>
+                </div>
+              </div>
+
+              <!-- CTA Button -->
+              <a
+                href="#"
+                class="inline-flex items-center bg-blue-600 text-white px-10 py-5 rounded-2xl font-medium hover:bg-blue-700 transition-all duration-300 text-lg"
+              >
+                Learn more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 ml-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- System font stack for Apple-like typography -->
+      <style>
+        section {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+            "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      </style>
+    </section>
+
+    <!-- BLOG HEADER -->
+    <section id="blog" class="bg-white font-sans antialiased">
+      <div class="max-w-7xl mx-auto px-6 py-24">
+        <!-- Section Header in Apple Style -->
+        <div class="mb-20 text-center md:text-left">
+          <h1
+            class="text-6xl md:text-7xl font-bold text-gray-900 tracking-tight mb-4 leading-none"
+          >
+            Blog.
+          </h1>
+          <h2
+            class="text-2xl md:text-3xl text-gray-500 font-normal tracking-tight max-w-3xl"
+          >
+            Insights and updates from the world of gas fuel delivery.
+          </h2>
+        </div>
+
+        <!-- Bento Grid Blog Section -->
+        <div class="bento-grid mb-16">
+          <!-- Compact Featured Article -->
+          <div
+            class="bento-card col-span-1 md:col-span-1 row-span-1 bg-gradient-to-br from-white to-purple-50"
+          >
+            <div class="h-full flex flex-col">
+              <img
+                src="https://m.media-amazon.com/images/I/51cXzovD+XL.jpg"
+                alt="Safe Gas Handling at Home"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 flex flex-col flex-grow">
+                <span
+                  class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-xs mb-2"
+                  >FEATURED</span
+                >
+                <h3 class="text-xl font-bold mb-2 text-neutral-900">
+                  Safe Gas Handling at Home: Essential Tips
+                </h3>
+                <p
+                  class="text-neutral-600 mb-4 flex-grow leading-relaxed text-sm"
+                >
+                  Learn the crucial safety practices every household should
+                  follow when using LPG cylinders.
+                </p>
+                <div class="flex justify-between items-center mt-auto">
+                  <span class="text-neutral-500 text-xs">March 19, 2025</span>
+                  <button
+                    class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-1.5 rounded-full font-medium hover:shadow-lg transition duration-300 text-sm"
+                  >
+                    Read
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regular Blog Cards -->
+          <div class="bento-card bg-gradient-to-br from-white to-blue-50">
+            <div class="h-full flex flex-col">
+              <img
+                src="https://img.freepik.com/premium-photo/3d-vector-natural-gas-tank-used-cooking-various-industries-consumable-energy-economy-concept-eps-10-vector_776674-835627.jpg"
+                alt="LPG vs Natural Gas"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold mb-3 text-neutral-900">
+                  LPG vs Natural Gas: Which is Right for Your Home?
+                </h3>
+                <p class="text-neutral-600 mb-4 flex-grow leading-relaxed">
+                  Compare the benefits, costs, and environmental impact of
+                  different fuel options.
+                </p>
+                <div class="flex justify-between items-center mt-auto">
+                  <span class="text-neutral-500">March 15, 2025</span>
+                  <div
+                    class="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white hover:bg-blue-600 transition"
+                  >
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card bg-gradient-to-br from-white to-orange-50">
+            <div class="h-full flex flex-col">
+              <img
+                src="https://img.freepik.com/premium-photo/steel-gas-cylinder-cart_23-2149365544.jpg"
+                alt="Smart Cylinder Technology"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 flex flex-col flex-grow">
+                <span
+                  class="inline-block px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-sm mb-3"
+                  >NEW</span
+                >
+                <h3 class="text-xl font-bold mb-3 text-neutral-900">
+                  Smart Cylinder Technology: The Future of LPG
+                </h3>
+                <p class="text-neutral-600 mb-4 flex-grow leading-relaxed">
+                  Discover how IoT-enabled cylinders are revolutionizing the way
+                  we monitor and manage gas consumption.
+                </p>
+                <div class="flex justify-between items-center mt-auto">
+                  <span class="text-neutral-500">March 10, 2025</span>
+                  <div
+                    class="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white hover:bg-orange-600 transition"
+                  >
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card bg-gradient-to-br from-white to-teal-50">
+            <div class="h-full flex flex-col">
+              <div
+                class="bg-gradient-to-r from-teal-400 to-cyan-500 h-48 flex items-center justify-center"
+              >
+                <i class="fas fa-calculator text-white text-6xl"></i>
+              </div>
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold mb-3 text-neutral-900">
+                  Calculate Your Cylinder Usage
+                </h3>
+                <p class="text-neutral-600 mb-4 flex-grow leading-relaxed">
+                  Use our interactive tool to estimate how long your cylinder
+                  will last based on your cooking habits.
+                </p>
+                <div class="flex justify-between items-center mt-auto">
+                  <span class="text-neutral-500">March 5, 2025</span>
+                  <div
+                    class="w-9 h-9 rounded-full bg-teal-500 flex items-center justify-center text-white hover:bg-teal-600 transition"
+                  >
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card bg-gradient-to-br from-white to-emerald-50">
+            <div class="h-full flex flex-col">
+              <img
+                src="https://img.freepik.com/premium-photo/new-green-lpg-gas-tank-with-gas-cutter-white-background-used-cooking-various-industries_657790-31662.jpg"
+                alt="Government Subsidies"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold mb-3 text-neutral-900">
+                  Updated Guide to Government Subsidies on LPG
+                </h3>
+                <p class="text-neutral-600 mb-4 flex-grow leading-relaxed">
+                  Everything you need to know about the latest subsidy rates and
+                  how to claim them efficiently.
+                </p>
+                <div class="flex justify-between items-center mt-auto">
+                  <span class="text-neutral-500">March 1, 2025</span>
+                  <div
+                    class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center text-white hover:bg-emerald-600 transition"
+                  >
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- View All Card -->
+          <div
+            class="bento-card bg-gradient-to-br from-slate-800 to-slate-900 text-white"
+          >
+            <div
+              class="h-full flex flex-col items-center justify-center p-10 text-center"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-6"
+              >
+                <i class="fas fa-newspaper text-slate-900 text-2xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold mb-3">Explore All Articles</h3>
+              <p class="text-slate-300 mb-6 leading-relaxed">
+                Discover our complete collection of guides, tips, and industry
+                updates.
+              </p>
+              <button
+                class="border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-slate-900 transition duration-300"
+              >
+                View All Blogs
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter Signup in Apple Style -->
+        <div
+          class="mt-16 bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-600 rounded-3xl p-10 text-white overflow-hidden relative"
+        >
+          <!-- Decorative element -->
+          <div
+            class="absolute -right-24 -top-24 w-48 h-48 bg-white opacity-10 rounded-full"
+          ></div>
+          <div
+            class="absolute -left-16 -bottom-16 w-32 h-32 bg-white opacity-10 rounded-full"
+          ></div>
+
+          <div
+            class="flex flex-col md:flex-row items-center justify-between relative z-10"
+          >
+            <div class="mb-8 md:mb-0">
+              <h3 class="text-3xl font-bold mb-3">Stay updated.</h3>
+              <p class="text-indigo-100 text-lg">
+                Get the latest safety tips and special offers delivered to your
+                inbox.
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+              <input
+                type="email"
+                placeholder="Email address"
+                class="px-5 py-3.5 rounded-full text-neutral-900 w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-white"
+              />
+              <button
+                class="bg-white text-indigo-700 px-8 py-3.5 rounded-full font-medium hover:bg-opacity-90 transition-colors"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testimonials" class="py-20 px-6 overflow-hidden bg-gray-50">
+      <div class="container mx-auto max-w-6xl">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <h2
+            class="text-5xl md:text-6xl font-semibold mb-6 tracking-tight text-gray-900"
+            style="
+              font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+                'Helvetica Neue', sans-serif;
+              letter-spacing: -0.025em;
+            "
+          >
+            What our customers are saying
+          </h2>
+          <p
+            class="text-gray-500 max-w-2xl mx-auto text-xl md:text-2xl font-light leading-relaxed"
+            style="
+              font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+                'Helvetica Neue', sans-serif;
+              letter-spacing: -0.01em;
+            "
+          >
+            Discover how FuelPro is transforming businesses across industries
+            with reliable fuel solutions.
+          </p>
+        </div>
+
+        <!-- Carousel Container -->
+        <div class="relative max-w-3xl mx-auto">
+          <!-- Carousel Track -->
+          <div id="testimonialContainer" class="overflow-hidden">
+            <div
+              id="testimonialTrack"
+              class="flex transition-transform duration-500 ease-out"
+            >
+              <!-- Testimonial 1 -->
+              <div class="testimonial-slide w-full flex-shrink-0 px-4">
+                <div class="bg-white rounded-2xl p-10 shadow-sm">
+                  <!-- Rating Stars -->
+                  <div class="flex mb-4">
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <!-- Testimonial Content -->
+                  <p
+                    class="text-gray-800 text-xl mb-8 leading-relaxed font-light"
+                  >
+                    "As a construction company, we rely heavily on consistent
+                    fuel supply. FuelPro has been our trusted partner for over 5
+                    years, providing excellent service and quality products that
+                    keep our operations running smoothly."
+                  </p>
+
+                  <!-- Client Info -->
+                  <div class="flex items-center">
+                    <div
+                      class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-gray-200"
+                    >
+                      <img
+                        src="data:image/jpeg;base64,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"
+                        alt="Client"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 class="text-gray-900 font-medium">Shawn Mendes</h4>
+                      <p class="text-gray-500">
+                        Operations Director, BuildRight Construction
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 2 -->
+              <div class="testimonial-slide w-full flex-shrink-0 px-4">
+                <div class="bg-white rounded-2xl p-10 shadow-sm">
+                  <!-- Rating Stars -->
+                  <div class="flex mb-4">
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <!-- Testimonial Content -->
+                  <p
+                    class="text-gray-800 text-xl mb-8 leading-relaxed font-light"
+                  >
+                    "The FuelPro platform has revolutionized how we manage our
+                    fuel needs. Their transparent pricing and reliable delivery
+                    schedule have saved us both time and money. The analytics
+                    dashboard is simply brilliant."
+                  </p>
+
+                  <!-- Client Info -->
+                  <div class="flex items-center">
+                    <div
+                      class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-gray-200"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d29tYW4lMjBmYWNlfGVufDB8fDB8fHww"
+                        alt="Client"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 class="text-gray-900 font-medium">Sarah Johnson</h4>
+                      <p class="text-gray-500">
+                        Logistics Manager, GreenTech Industries
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 3 -->
+              <div class="testimonial-slide w-full flex-shrink-0 px-4">
+                <div class="bg-white rounded-2xl p-10 shadow-sm">
+                  <!-- Rating Stars -->
+                  <div class="flex mb-4">
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-5 h-5 text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <!-- Testimonial Content -->
+                  <p
+                    class="text-gray-800 text-xl mb-8 leading-relaxed font-light"
+                  >
+                    "We've been able to reduce our fuel costs by 15% since
+                    switching to FuelPro. Their commitment to innovation and
+                    customer service is unmatched in the industry."
+                  </p>
+
+                  <!-- Client Info -->
+                  <div class="flex items-center">
+                    <div
+                      class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-gray-200"
+                    >
+                      <img
+                        src="https://plus.unsplash.com/premium_photo-1664537980500-30bb5ec506e1?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d29tYW4lMjBmYWNlfGVufDB8fDB8fHww"
+                        alt="Client"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 class="text-gray-900 font-medium">Emily Rodriguez</h4>
+                      <p class="text-gray-500">
+                        Fleet Manager, Horizon Delivery
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button
+            id="prevButton"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 md:-translate-x-12 bg-white hover:bg-gray-100 text-gray-800 rounded-full p-3 shadow-md focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+
+          <button
+            id="nextButton"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 md:translate-x-12 bg-white hover:bg-gray-100 text-gray-800 rounded-full p-3 shadow-md focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+
+          <!-- Pagination Dots -->
+          <div class="flex justify-center mt-10">
+            <button
+              class="dot h-2 w-8 rounded-full bg-gray-900 mx-1 focus:outline-none"
+              data-index="0"
+            ></button>
+            <button
+              class="dot h-2 w-2 rounded-full bg-gray-300 mx-1 focus:outline-none hover:bg-gray-400"
+              data-index="1"
+            ></button>
+            <button
+              class="dot h-2 w-2 rounded-full bg-gray-300 mx-1 focus:outline-none hover:bg-gray-400"
+              data-index="2"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const track = document.getElementById("testimonialTrack");
+        const slides = document.querySelectorAll(".testimonial-slide");
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+        const dots = document.querySelectorAll(".dot");
+
+        let currentIndex = 0;
+        const slideCount = slides.length;
+
+        // Set initial slide width
+        function setSlideWidth() {
+          const containerWidth = document.getElementById(
+            "testimonialContainer"
+          ).offsetWidth;
+          slides.forEach((slide) => {
+            slide.style.width = `${containerWidth}px`;
+          });
+
+          // Update track position
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Initialize
+        setSlideWidth();
+        window.addEventListener("resize", setSlideWidth);
+
+        // Update active dot
+        function updateActiveDot() {
+          dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+              dot.classList.add("w-8", "bg-gray-900");
+              dot.classList.remove("w-2", "bg-gray-300");
+            } else {
+              dot.classList.add("w-2", "bg-gray-300");
+              dot.classList.remove("w-8", "bg-gray-900");
+            }
+          });
+        }
+
+        // Next slide
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % slideCount;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          updateActiveDot();
+        }
+
+        // Previous slide
+        function prevSlide() {
+          currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          updateActiveDot();
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+          currentIndex = index;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          updateActiveDot();
+        }
+
+        // Add event listeners
+        nextButton.addEventListener("click", nextSlide);
+        prevButton.addEventListener("click", prevSlide);
+
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", () => goToSlide(index));
+        });
+
+        // Auto-advance slides
+        let interval = setInterval(nextSlide, 6000);
+
+        // Pause on hover
+        const carouselContainer = document.getElementById(
+          "testimonialContainer"
+        );
+        carouselContainer.addEventListener("mouseenter", () =>
+          clearInterval(interval)
+        );
+        carouselContainer.addEventListener("mouseleave", () => {
+          clearInterval(interval);
+          interval = setInterval(nextSlide, 6000);
+        });
+      });
+    </script>
+
+    <!-- Include Lottie Player Script in <head> -->
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+
+    <!-- Chatbot -->
+    <div id="chatbot" class="fixed bottom-6 right-6 z-50 font-sans">
+      <!-- Floating Chat Button -->
+      <button
+        id="chatbotButton"
+        class="bg-blue-600 rounded-full"
+        aria-label="Open Chat"
+        
+      >
+        <!-- <dotlottie-player
+          src="https://lottie.host/a379a017-2c41-4ca7-b0a2-ce484fa9891b/1ImsWjwsP7.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 150px; height: 150px"
+          loop
+          autoplay
+        ></dotlottie-player> -->
+
+        <dotlottie-player
+          src="https://lottie.host/ed389352-428c-483e-a417-4da4cbc92723/kgGCKpIma2.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 150px; height: 150px;"
+          loop
+          autoplay
+        ></dotlottie-player>
+
+        <!-- <dotlottie-player
+          src="https://lottie.host/a5e7900a-332e-4033-9138-6526c34a3c21/saXbSoTt6x.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 150px; height: 150px"
+          loop
+          autoplay
+        ></dotlottie-player> -->
+
+        <!-- <script
+          src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+          type="module"
+        ></script>
+        <dotlottie-player
+          src="https://lottie.host/a668a40b-08e5-4da4-bc79-95bed622201b/n4OvW3Cfix.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 150px; height: 150px"
+          loop
+          autoplay
+        ></dotlottie-player> -->
+
+      </button>
+
+      <!-- Chat Window -->
+      <div
+        id="chatWindow"
+        class="hidden absolute bottom-24 right-0 w-96 bg-white border border-gray-200 shadow-2xl rounded-2xl p-6 transition-all duration-300"
+      >
+        <!-- Header -->
+        <div class="flex justify-between items-center border-b pb-4 mb-4">
+          <h3 class="text-lg font-bold text-gray-800">Support</h3>
+          <button
+            id="closeChat"
+            class="text-gray-400 hover:text-gray-700 text-xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Chat Body -->
+        <p class="text-gray-600 text-sm mb-4">
+          Chat with our support team. We're here to help!
+        </p>
+        <textarea
+          class="w-full p-3 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          rows="3"
+          placeholder="Type your message..."
+        ></textarea>
+
+        <!-- Send Button -->
+        <button
+          class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-full transition"
+        >
+          <i class="fas fa-paper-plane mr-2"></i>Send
+        </button>
+      </div>
+    </div>
+
+    <!-- Script to toggle chat -->
+    <script>
+      document
+        .getElementById("chatbotButton")
+        .addEventListener("click", function () {
+          var chatWindow = document.getElementById("chatWindow");
+          chatWindow.classList.toggle("hidden");
+        });
+
+      document
+        .getElementById("closeChat")
+        .addEventListener("click", function () {
+          document.getElementById("chatWindow").classList.add("hidden");
+        });
+    </script>
+
+    <!-- Footer -->
+    <!-- components/footer.html -->
+    <footer class="bg-gray-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="md:col-span-1">
+            <div class="mb-6">
+              <span class="text-2xl font-bold">FuelPro</span>
+            </div>
+            <p class="text-gray-400 mb-6">
+              Premium fuel solutions for businesses and individuals. Quality and
+              reliability you can trust.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <i data-lucide="facebook" class="h-5 w-5"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <i data-lucide="twitter" class="h-5 w-5"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <i data-lucide="instagram" class="h-5 w-5"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <i data-lucide="linkedin" class="h-5 w-5"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4">Company</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#about"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >News & Blog</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4">Services</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#services"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Premium Fuel</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Delivery Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Storage Solutions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Fuel Management</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >FAQs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Customer Support</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-400 text-sm">
+            &copy; <span id="current-year"></span> FuelPro. All rights reserved.
+          </p>
+          <button
+            onclick="scrollToTop()"
+            class="mt-4 md:mt-0 flex items-center text-gray-400 hover:text-white transition-colors"
+          >
+            Back to top
+            <i data-lucide="arrow-up" class="ml-2 h-4 w-4"></i>
+          </button>
+        </div>
+      </div>
+      <script>
+        document.getElementById("current-year").textContent =
+          new Date().getFullYear();
+        function scrollToTop() {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      </script>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Management</title>
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .page-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 2rem;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            border-radius: 2px;
+        }
+		
+	.card-3d {
+            border-radius: 16px;
+            background: white;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            height: 100%;
+        }
+		    
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+		    
+        .card-icon {
+            height: 70px;
+            width: 70px;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+		    
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+		    
+        .card-title {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+		    
+        .action-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+        }
+		    
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+            animation: pulse 1s infinite;
+        }
+		    
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) translateY(-2px); }
+            50% { transform: scale(1.05) translateY(-2px); }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .card-details {
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #6b7280;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .table-container {
+            margin: 2rem auto;
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            background-color: white;
+            max-width: 1200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .status-active {
+            background-color: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            display: inline-block;
+        }
+
+        .status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            display: inline-block;
+        }
+
+        .toggle-button {
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .toggle-active {
+            background: linear-gradient(to right, #16a34a, #22c55e);
+        }
+
+        .toggle-inactive {
+            background: linear-gradient(to right, #dc2626, #ef4444);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1f2937;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #1f2937;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #1f2937;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-info {
+            background-color: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            color: #1e40af;
+        }
+        
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-icon {
+            height: 60px;
+            width: 60px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Back button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            color: #4b5563;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-button:hover {
+            background: #f9fafb;
+            transform: translateY(-1px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .section-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function showRegisterForm() {
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('customersList').style.display = 'none';
+            document.getElementById('cardSection').style.display = 'none';
+        }
+          
+        function showCustomersList() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('customersList').style.display = 'block';
+            document.getElementById('cardSection').style.display = 'none';
+        }
+        
+        function showCardSection() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('customersList').style.display = 'none';
+            document.getElementById('cardSection').style.display = 'block';
+        }
+          
+        document.addEventListener("DOMContentLoaded", function () {
+            // Auto-set registration date to today
+            let today = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
+            document.getElementById("registrationDate").value = today;
+            
+            // Form validation
+            document.getElementById("registrationForm").addEventListener("submit", function(event) {
+                let isValid = validateForm();
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        });
+        
+        function validateForm() {
+            let firstName = document.getElementById("firstName").value;
+            let lastName = document.getElementById("lastName").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let address = document.getElementById("address").value;
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let phoneRegex = /^\d{10}$/;
+            let isValid = true;
+            
+            // Reset previous error messages
+            document.querySelectorAll(".error-message").forEach(el => el.remove());
+            
+            if (!firstName) {
+                showError("firstName", "First name is required");
+                isValid = false;
+            }
+            
+            if (!lastName) {
+                showError("lastName", "Last name is required");
+                isValid = false;
+            }
+            
+            if (!email) {
+                showError("email", "Email is required");
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                showError("email", "Please enter a valid email address");
+                isValid = false;
+            }
+            
+            if (phone && !phoneRegex.test(phone)) {
+                showError("phone", "Please enter a valid 10-digit phone number");
+                isValid = false;
+            }
+            
+            if (!address) {
+                showError("address", "Address is required");
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showError(fieldId, message) {
+            let field = document.getElementById(fieldId);
+            let errorDiv = document.createElement("div");
+            errorDiv.className = "error-message text-red-500 text-sm mt-1";
+            errorDiv.textContent = message;
+            field.parentNode.appendChild(errorDiv);
+            field.classList.add("border-red-500");
+        }
+    </script>
+</head>
+<body>
+    <div class="container py-8 animate-fade-in">
+        <div class="text-center mb-8">
+            <h1 class="page-title">Customer Management</h1>
+        </div>
+
+        <div id="cardSection">
+			<div th:if="${param.success}" class="alert alert-success" role="alert">
+			    Customer registered successfully!
+			</div>
+            <div class="cards-container">
+                <!-- Register New Customer Card -->
+                <div class="card-3d animate-fade-in">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <line x1="20" y1="8" x2="20" y2="14"></line>
+                                <line x1="23" y1="11" x2="17" y2="11"></line>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Register New Customer</h3>
+                        <div class="card-details">
+                            Add a new customer to the system with all required details
+                        </div>
+                        <button onclick="showRegisterForm()" class="action-button">
+                            Register Customer
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- Manage Customer Status Card -->
+                <div class="card-3d animate-fade-in">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Manage Customer Status</h3>
+                        <div class="card-details">
+                            Activate or deactivate customer connections
+                        </div>
+                        <button onclick="showCustomersList()" class="action-button">
+                            Manage Status
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+				<!-- Update Customer Details Card -->
+				<div class="card-3d animate-fade-in">
+				    <div class="card-content">
+				        <div class="card-icon">
+				            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+				                <circle cx="9" cy="7" r="4"></circle>
+				                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+				                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+				            </svg>
+				        </div>
+				        <h3 class="card-title">Update Customers Details</h3>
+				        <div class="card-details">
+				            Update Customers Details Like Address, Phone No.
+				        </div>
+				        <a th:href="@{/bookings/users/update}" class="action-button">
+				            Update Details
+				            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+				                <circle cx="12" cy="12" r="3"></circle>
+				                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+				            </svg>
+				        </a>
+				    </div>
+				</div>
+            </div>
+        </div>
+    
+        <!-- Registration Form Section -->
+        <div id="registerForm" class="form-container" style="display: none;">
+            <div class="form-header">
+                <div class="form-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-600">Register a Customer</h2>
+            </div>
+            
+            <form id="registrationForm" th:action="@{/bookings/admin/register-users/{id}(id=${userId})}" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone:</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" pattern="[0-9]{10}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address:</label>
+                    <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Connection Type:</label>
+                    <select class="form-select" id="connectionType" name="connectionType" required>
+                        <option th:each="type : ${connectionTypes}"
+                                th:value="${type}" th:text="${type}"></option>
+                    </select>
+                </div>
+
+                <!-- Hidden fields -->
+                <input type="hidden" id="registrationDate" name="registrationDate" />
+                <input type="hidden" id="connectionStatus" name="connectionStatus" value="ACTIVE" />
+                <input type="hidden" id="role" name="role" value="CUSTOMER" />
+
+                <div class="alert alert-info text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <strong>Note:</strong> After registration, login credentials will be sent to your email.
+                </div>
+
+                <div class="flex space-x-4 mt-6">
+                    <button type="button" onclick="showCardSection()" class="flex-1 py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition duration-200">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        Register
+                    </button>
+                </div>
+            </form>
+        </div>
+    
+        <!-- Customer List Table -->
+        <div id="customersList" class="table-container" style="display: none;">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-blue-600">Manage Customer Status</h2>
+                    <button onclick="showCardSection()" class="back-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        Back to Options
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto rounded-lg shadow">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.userId}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.phone}"></td>
+                                <td>
+                                    <span th:if="${user.connectionStatus == 'ACTIVE'}" class="status-active">Active</span>
+                                    <span th:if="${user.connectionStatus == 'INACTIVE'}" class="status-inactive">Inactive</span>
+                                </td>
+                                <td>
+                                    <form th:action="@{/bookings/admin/users/toggle-status/{id}(id=${userId})}" method="post" style="display: inline;">
+                                        <input type="hidden" name="customerId" th:value="${user.userId}">
+                                        <input type="hidden" name="currentStatus" th:value="${user.connectionStatus}">
+                                        <button type="submit" 
+                                                th:class="${user.connectionStatus == 'ACTIVE' ? 'toggle-button toggle-inactive' : 'toggle-button toggle-active'}"
+                                                th:text="${user.connectionStatus == 'ACTIVE' ? 'Deactivate' : 'Activate'}">
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back button to return to dashboard -->
+        <div class="mt-6 text-center">
+            <a href="javascript:history.back()" class="back-button inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>

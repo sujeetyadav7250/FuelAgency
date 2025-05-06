@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Details</title>
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .page-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 2rem;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1f2937;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #1f2937;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-control:disabled {
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #1f2937;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+        }
+        
+        .action-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) translateY(-2px); }
+            50% { transform: scale(1.05) translateY(-2px); }
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-success {
+            background-color: rgba(22, 163, 74, 0.1);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            color: #166534;
+        }
+        
+        .alert-error {
+            background-color: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            color: #991b1b;
+        }
+        
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-icon {
+            height: 60px;
+            width: 60px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .edit-button {
+            border: none;
+            background: none;
+            color: #3b82f6;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-button:hover {
+            color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        
+        .field-container {
+            position: relative;
+        }
+        
+        .field-container .edit-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Back button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            color: #4b5563;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-button:hover {
+            background: #f9fafb;
+            transform: translateY(-1px);
+        }
+        
+        .customer-search {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .search-container {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .search-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+        }
+        
+        .search-button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-button:hover {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+        }
+    </style>
+</head>
+<body>
+	
+	<!--Navbar starts-->	
+	<nav class="fixed top-0 left-0 right-0 w-full bg-transparent backdrop-blur-sm z-50 px-4 py-4 transition-all duration-300">
+		      <div class="container max-w-7xl mx-auto flex items-center justify-between">
+		        <!-- Logo with Wind Symbol -->
+		        <a href="#" class="text-blue-600 flex items-center">
+		          <svg
+		            xmlns="http://www.w3.org/2000/svg"
+		            width="32"
+		            height="32"
+		            viewBox="0 0 24 24"
+		            fill="none"
+		            stroke="currentColor"
+		            stroke-width="2"
+		            stroke-linecap="round"
+		            stroke-linejoin="round"
+		            class="lucide lucide-wind w-8 h-8 mr-3"
+		          >
+		            <path d="M12.8 19.6A2 2 0 1 0 14 16H2" />
+		            <path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" />
+		            <path d="M9.8 4.4A2 2 0 1 1 11 8H2" />
+		          </svg>
+		          <span class="font-medium text-3xl tracking-tight">FuelPro</span>
+		        </a>
+
+		        <!-- Main Navigation Links -->
+		        <ul class="hidden lg:flex space-x-8">
+		          <li>
+		            <a
+		              th:href="@{/}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Home</a
+		            >
+		          </li>
+                  <li>
+                    <a
+                      th:href="@{/bookings/dashboard/ADMIN/{id}(id=${userId})}"
+                      class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+                      >Dashboard</a
+                    >
+                  </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/cylindermanage/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Cylinder Management</a
+		            >
+		          </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/suppliermanage/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Supplier Management</a
+		            >
+		          </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+					  th:href="@{/bookings/admin/users/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Customer Management</a
+		            >
+		          </li>
+		          <li th:if="${role == 'ADMIN'}">
+		            <a
+                      th:href="@{/reportmanage/{id}(id=${userId})}"
+		              class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+		              >Report Management</a
+		            >
+		          </li>
+				  <!--customer nav links start-->
+				  <li th:if="${role == 'CUSTOMER'}">
+				    <a
+				      th:href="@{/bookings(userId=${userId})}"
+				      class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+				      >View Your Bookings</a
+				    >
+				  </li>
+				  <li th:if="${role == 'CUSTOMER'}">
+				    <a
+				      onclick="assignCylinderAndBook()"
+				      class="text-lg font-medium text-gray-800 hover:text-blue-500 transition-colors"
+				      >Create New Booking</a
+				    >
+				  </li>
+				  <!-- customer nav links end -->
+		        </ul>
+
+		        <!-- Login Button with Mobile Menu Button -->
+		        <div class="flex items-center">
+					<a th:href="@{/bookings/login}" class="hover:bg-red-600 px-3 py-2 rounded-md transition duration-300 flex items-center text-red-200">
+						 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+						    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+						    <polyline points="16 17 21 12 16 7"></polyline>
+						  	<line x1="21" y1="12" x2="9" y2="12"></line>
+						 </svg>
+						Logout
+					</a>
+		          <!-- Mobile Menu Button -->
+		          <button class="lg:hidden text-gray-800" id="mobile-menu-button">
+		            <svg
+		              class="w-8 h-8"
+		              fill="none"
+		              stroke="currentColor"
+		              viewBox="0 0 24 24"
+		            >
+		              <path
+		                stroke-linecap="round"
+		                stroke-linejoin="round"
+		                stroke-width="2"
+		                d="M4 6h16M4 12h16m-7 6h7"
+		              ></path>
+		            </svg>
+		          </button>
+		        </div>
+		      </div>
+		    </nav>	
+
+	<!--Navbar ends-->	
+	
+    <div class="container py-8 pt-24 animate-fade-in">
+        <div class="text-center mb-8">
+            <h1 class="page-title">Customer Details</h1>
+        </div>
+        
+        <!-- Customer Search Section -->
+        <div class="customer-search animate-fade-in">
+            <h2 class="text-xl font-semibold mb-2 text-gray-800">Find Customer</h2>
+            <p class="text-gray-600 mb-4">Enter customer ID to view and update details</p>
+            
+            <div class="search-container">
+                <input type="text" id="customerIdInput" class="search-input" placeholder="Enter Customer ID">
+                <button id="searchButton" class="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    Search
+                </button>
+            </div>
+            
+            <div id="searchErrorMessage" class="alert alert-error mt-4" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span id="errorText">Customer not found</span>
+            </div>
+        </div>
+        
+        <!-- Customer Details Form -->
+        <div id="customerDetailsForm" class="form-container animate-fade-in" style="display: none;">
+            <div id="updateSuccessMessage" class="alert alert-success" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Customer details updated successfully!
+            </div>
+            
+            <div class="form-header">
+                <div class="form-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-600">Customer Information</h2>
+            </div>
+            
+            <form id="updateCustomerForm">
+                <input type="hidden" id="customerId" name="customerId">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address:</label>
+                    <div class="field-container">
+                        <textarea id="address" name="address" class="form-control" rows="3" disabled></textarea>
+                        <button type="button" class="edit-button" data-field="address">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Edit
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <div class="field-container">
+                            <input type="email" id="email" name="email" class="form-control" disabled>
+                            <button type="button" class="edit-button" data-field="email">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone:</label>
+                        <div class="field-container">
+                            <input type="tel" id="phone" name="phone" class="form-control" disabled>
+                            <button type="button" class="edit-button" data-field="phone">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Connection Type:</label>
+                    <div class="field-container">
+                        <select class="form-select" id="connectionType" name="connectionType" disabled>
+							<option th:each="type : ${connectionTypes}"
+								th:value="${type}" th:text="${type}"></option>
+                        </select>
+                        <button type="button" class="edit-button" data-field="connectionType">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Edit
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Connection Status:</label>
+                    <div class="mt-2">
+                        <span id="statusBadge" class="px-3 py-1 rounded-full text-sm font-medium"></span>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4 mt-6">
+                    <button type="button" id="cancelButton" class="flex-1 py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition duration-200">
+                        Cancel
+                    </button>
+                    <button type="button" id="saveChangesButton" class="flex-1 btn-primary" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Back button to return to dashboard -->
+        <div class="mt-6 text-center">
+            <a th:href="@{/bookings/admin/users/{id}(id=${userId})}" class="back-button inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // DOM Elements
+            const customerIdInput = document.getElementById('customerIdInput');
+            const searchButton = document.getElementById('searchButton');
+            const searchErrorMessage = document.getElementById('searchErrorMessage');
+            const customerDetailsForm = document.getElementById('customerDetailsForm');
+            const updateCustomerForm = document.getElementById('updateCustomerForm');
+            const saveChangesButton = document.getElementById('saveChangesButton');
+            const cancelButton = document.getElementById('cancelButton');
+            const updateSuccessMessage = document.getElementById('updateSuccessMessage');
+            
+            // Editable fields
+            const editableFields = ['address', 'phone', 'email', 'connectionType'];
+            
+            // Track which fields have been modified
+            let modifiedFields = {};
+            
+            // Current customer data
+            let currentCustomer = null;
+            
+            // Add event listeners
+            searchButton.addEventListener('click', searchCustomer);
+            saveChangesButton.addEventListener('click', saveChanges);
+            cancelButton.addEventListener('click', cancelChanges);
+            
+            // Add event listeners to edit buttons
+            document.querySelectorAll('.edit-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const field = this.getAttribute('data-field');
+                    toggleEditField(field);
+                });
+            });
+            
+            // Function to search for a customer
+            async function searchCustomer() {
+                const customerId = customerIdInput.value.trim();
+                
+                if (!customerId) {
+                    showSearchError('Please enter a customer ID');
+                    return;
+                }
+                
+                try {
+                    // Reset form and messages
+                    resetForm();
+                    
+                    // Fetch customer data
+                    const response = await fetch(`http://localhost:8080/api/users/${customerId}`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            showSearchError('Customer not found');
+                        } else {
+                            showSearchError('Error fetching customer data');
+                        }
+                        customerDetailsForm.style.display = 'none';
+                        return;
+                    }
+                    
+                    const customer = await response.json();
+                    currentCustomer = customer;
+                    
+                    // Display customer data
+                    displayCustomerData(customer);
+                    
+                    // Show the customer details form
+                    customerDetailsForm.style.display = 'block';
+                    searchErrorMessage.style.display = 'none';
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    showSearchError('An error occurred while fetching customer data');
+                    customerDetailsForm.style.display = 'none';
+                }
+            }
+            
+            // Function to display customer data
+            function displayCustomerData(customer) {
+                document.getElementById('customerId').value = customer.userId || '';
+                document.getElementById('firstName').value = customer.firstName || '';
+                document.getElementById('lastName').value = customer.lastName || '';
+                document.getElementById('address').value = customer.address || '';
+                document.getElementById('email').value = customer.email || '';
+                document.getElementById('phone').value = customer.phone || '';
+                document.getElementById('connectionType').value = customer.connectionType || '';
+                
+                // Display connection status
+                const statusBadge = document.getElementById('statusBadge');
+                if (customer.connectionStatus === 'ACTIVE') {
+                    statusBadge.className = 'px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800';
+                    statusBadge.textContent = 'Active';
+                } else {
+                    statusBadge.className = 'px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800';
+                    statusBadge.textContent = 'Inactive';
+                }
+                
+                // Reset all fields to disabled
+                editableFields.forEach(field => {
+                    document.getElementById(field).disabled = true;
+                });
+                
+                // Hide save button
+                saveChangesButton.style.display = 'none';
+                
+                // Clear modified fields
+                modifiedFields = {};
+            }
+            
+            // Function to toggle edit mode for a field
+            function toggleEditField(fieldName) {
+                const field = document.getElementById(fieldName);
+                
+                if (field.disabled) {
+                    // Enable editing
+                    field.disabled = false;
+                    field.focus();
+                    
+                    // Track original value
+                    if (!modifiedFields[fieldName]) {
+                        modifiedFields[fieldName] = {
+                            original: field.value,
+                            modified: false
+                        };
+                    }
+                    
+                    // Show save button
+                    saveChangesButton.style.display = 'flex';
+                } else {
+                    // Disable editing
+                    field.disabled = true;
+                    
+                    // Check if value was modified
+                    if (modifiedFields[fieldName]) {
+                        modifiedFields[fieldName].modified = field.value !== modifiedFields[fieldName].original;
+                    }
+                    
+                    // Check if we still need the save button
+                    const anyModified = Object.values(modifiedFields).some(field => field.modified);
+                    
+                    if (!anyModified) {
+                        saveChangesButton.style.display = 'none';
+                    }
+                }
+            }
+            
+            // Function to save changes
+            async function saveChanges() {
+                if (!currentCustomer || !currentCustomer.userId) {
+                    showSearchError('No customer data to update');
+                    return;
+                }
+                
+                // Create updated customer object
+                const updatedCustomer = {
+					firstName: document.getElementById("firstName").value,
+					lastName: document.getElementById("lastName").value,
+                    address: document.getElementById('address').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+					connectionStatus: document.getElementById('statusBadge').textContent === 'Active' ? 'ACTIVE' : 'INACTIVE',
+                    connectionType: document.getElementById('connectionType').value
+                };
+				
+				console.log("Current customer:", currentCustomer);
+				console.log("Updated customer data to send:", updatedCustomer);
+                
+                try {
+                    // Send update request
+                    const response = await fetch(`http://localhost:8080/api/users/${currentCustomer.userId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(updatedCustomer)
+                    });
+                    
+                    if (!response.ok) {
+                        showSearchError('Error updating customer data');
+                        return;
+                    }
+                    
+                    // Update was successful
+                    currentCustomer = updatedCustomer;
+                    
+                    // Disable all editable fields
+                    editableFields.forEach(field => {
+                        document.getElementById(field).disabled = true;
+                    });
+                    
+                    // Hide save button
+                    saveChangesButton.style.display = 'none';
+                    
+                    // Reset modified fields
+                    modifiedFields = {};
+                    
+                    // Show success message
+                    updateSuccessMessage.style.display = 'flex';
+                    setTimeout(() => {
+                        updateSuccessMessage.style.display = 'none';
+                    }, 5000);
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    showSearchError('An error occurred while updating customer data');
+                }
+            }
+            
+            // Function to cancel changes
+            function cancelChanges() {
+                // Reset form to original values
+                if (currentCustomer) {
+                    displayCustomerData(currentCustomer);
+                } else {
+                    resetForm();
+                    customerDetailsForm.style.display = 'none';
+                }
+            }
+            
+            // Function to reset the form
+            function resetForm() {
+                updateCustomerForm.reset();
+                modifiedFields = {};
+                saveChangesButton.style.display = 'none';
+                updateSuccessMessage.style.display = 'none';
+                
+                // Disable all editable fields
+                editableFields.forEach(field => {
+                    document.getElementById(field).disabled = true;
+                });
+            }
+            
+            // Function to show search error message
+            function showSearchError(message) {
+                searchErrorMessage.style.display = 'flex';
+                document.getElementById('errorText').textContent = message;
+            }
+        });
+    </script>
+</body>
+</html>
